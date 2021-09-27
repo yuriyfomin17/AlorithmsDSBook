@@ -1,4 +1,4 @@
-package Chapter1.CourseraAssignment;
+package Chapter1.CourseraAssignmentWeek1;
 
 public class HelloGoodbye {
     public static void main(String[] args) {
