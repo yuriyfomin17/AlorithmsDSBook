@@ -14,6 +14,7 @@ public class Ex1132Hist {
         double r = Double.parseDouble(args[2]);
         StdDraw.setXscale(l-1, r + 1);
         StdDraw.setYscale(0, N);
+        formatHistogramGraph(l + ((r-l) / 2), N, l);
         ArrayList<Double> arrayList = new ArrayList<>();
         while (!StdIn.isEmpty()){
             double currValue = StdIn.readDouble();
@@ -30,6 +31,9 @@ public class Ex1132Hist {
             int halfHeight = copy.size() / 2;
             StdDraw.filledRectangle(i, 0 , ((r - l) / N) - 0.1, halfHeight);
         }
-
+    }
+    public static void formatHistogramGraph(double middleX, double maxY, double minX){
+        StdDraw.text(middleX, maxY - maxY * 0.1, "Numbers in intervals");
+        StdDraw.text(minX + minX * 0.3, maxY / 2, "Numbers", 90);
     }
 }
