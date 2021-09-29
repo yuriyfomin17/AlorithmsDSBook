@@ -22,7 +22,7 @@ public class Ex1133MatrixAPI {
         }
     }
     // vector dot product
-    public static double dot(double[]x, double[]y){
+    public static double dot(double[]x, double[]y){  // ✅ checked
         if ((x == null || y == null) || (x.length != y.length)) throw new IllegalArgumentException();
         double sum = 0.0;
         for (int i = 0; i < y.length; i++) {
@@ -30,8 +30,9 @@ public class Ex1133MatrixAPI {
         }
         return sum;
     }
+
     // multiplying matrix by another matrix
-    public static double[][] mult(double[][] x, double[][] y){
+    public static double[][] mult(double[][] x, double[][] y){  // ✅ checked
         if ((x == null || y == null) || (x[0].length != y.length)) throw new IllegalArgumentException();
         int numRows1 = x.length;
         int numCols1 = x[0].length;
@@ -52,7 +53,7 @@ public class Ex1133MatrixAPI {
     }
 
     // transpose matrix
-    public static double[][] transpose(double[][]a){
+    public static double[][] transpose(double[][]a){ // ✅ checked
         if (a == null) throw new IllegalArgumentException();
         int numRows = a.length;
         int numCols = a[0].length;
@@ -67,58 +68,49 @@ public class Ex1133MatrixAPI {
         return transposeMatrix;
     }
     // matrix-vector product
-    public static double[] mult(double[][]x, double[] y){
-        if ((x == null || y == null) || (x[0].length != y.length )) throw new IllegalArgumentException();
+    public static double[] mult(double[][]x, double[] y){ // ✅ checked
+        if ((x == null || y == null || x.length == 0 || y.length == 0)  || (x[0].length != y.length )) throw new IllegalArgumentException();
         int numRows1 = x.length;
         int numCols1 = x[0].length;
 
-        int numRows2 = y.length;
         int numCols2 = 1;
+        int numRows2 = y.length;
         double[] matrixResult = new double[numRows1];
-        // (numRows1 * numCols1) x (numRows2 * numCols2) = numRows1 * numCols2
+        // (numRows1 * numCols1) x (numRows2* 1) = numRows1 * 1
         for (int r = 0; r < numRows1; r++) {
-            for (int c = 0; c < numCols2; c++) {
-                for (int i = 0; i < numRows2; i++) {
-                    matrixResult[r] += x[r][i] * y[i];
-                }
+            for (int i = 0; i < numCols1; i++) {
+                matrixResult[r] += x[r][i] * y[i];
             }
-
         }
         return matrixResult;
 
     }
     // vector - matrix product
-    public static double[] mult(double[] y, double[][]a){
+    public static double[] mult(double[] y, double[][]a){ // ✅ checked
         if ((y == null || a == null) || (y.length != a.length) ) throw new IllegalArgumentException();
 
-        int numRows1 = y.length;
-        int numCols1 = 1;
+        int numRows1 = 1;
+        int numCols1 = y.length;
 
         int numRows2 = a.length;
         int numCols2 = a[0].length;
-        // (numRows1 * numCols1) x (numRows2 * numCols2) = numRows1 * numCols2
+        // (1 * numCols1) x (numRows2 * numCols2) = 1 * numCols2
         double[] matrixResult = new double[numCols2];
-        for (int r = 0; r < numRows1; r++) {
-            for (int c = 0; c < numCols2; c++) {
-                for (int i = 0; i < numCols1; i++) {
-                    matrixResult[c] += y[c] * a[r][i];
-                }
+        for (int c = 0; c < numCols2; c++) {
+            for (int c1 = 0; c1 < numCols1; c1++) {
+                matrixResult[c] += y[c1] * a[c1][c];
             }
         }
         return matrixResult;
     }
 
     public static void main(String[] args) {
-        double[][] matrix1 = {
-                {1, 2 ,3},
-                {4, 5, 6},
-                {7, 8, 9}
-        };
+        double[] matrix1 = {1, 2 ,3};
         double[][] matrix2 = {
                 {1, 2 ,3},
                 {4, 5, 6},
                 {7, 8, 9}
         };
-        Printer.print(mult(matrix1, matrix2 ));
+        Printer.print(mult(matrix2, matrix1 ));
     }
 }

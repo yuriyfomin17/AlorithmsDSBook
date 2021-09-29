@@ -2,8 +2,10 @@ package Chapter1.ChapterNotes;
 
 public class AbsoluteValue {
     public static void main(String[] args) {
+        long num = 1001231231;
         System.out.printf("ABS Integer %d\n", absInt(-5));
         System.out.printf("ABS Double %.1f", absDouble(-5.0));
+        System.out.printf("Long %d",num );
     }
 
     public static int absInt(int x){
