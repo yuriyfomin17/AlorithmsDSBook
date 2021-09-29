@@ -31,25 +31,23 @@ public class Ex1133MatrixAPI {
         return sum;
     }
 
-    // multiplying matrix by another matrix
-    public static double[][] mult(double[][] x, double[][] y){  // ✅ checked
-        if ((x == null || y == null) || (x[0].length != y.length)) throw new IllegalArgumentException();
+    public static double[] matrixVectorProduct(double[][] x, double[] y){ // ✅ checked
+        // (numRows1 * numCols1) x (numRows2 * 1) = numRows1 * 1
+        if (x == null || y == null || x[0].length != y.length ) throw new IllegalArgumentException();
+
         int numRows1 = x.length;
         int numCols1 = x[0].length;
 
         int numRows2 = y.length;
-        int numCols2 = y[0].length;
-        // (numRows1 * numCols1) x (numRows2 * numCols2) = numRows1 * numCols2
-        double[][] resultMatrix = new double[numRows1][numCols2];
-        for (int r = 0; r < numRows1; r++) {
-            for (int c = 0; c < numCols2; c++) {
-                for (int i = 0; i < numCols1; i++) {
-                    resultMatrix[r][c] += x[r][i] * y[i][c];
-                }
-            }
+        int numCols2 = 1;
 
+        double[] matrixResult = new double[numRows1];
+        for (int c = 0; c < numCols1; c++) {
+            for (int r = 0; r < numRows1; r++) {
+                matrixResult[r] += x[r][c] * y[c];
+            }
         }
-        return resultMatrix;
+        return matrixResult;
     }
 
     // transpose matrix
@@ -77,9 +75,9 @@ public class Ex1133MatrixAPI {
         int numRows2 = y.length;
         double[] matrixResult = new double[numRows1];
         // (numRows1 * numCols1) x (numRows2* 1) = numRows1 * 1
-        for (int r = 0; r < numRows1; r++) {
-            for (int i = 0; i < numCols1; i++) {
-                matrixResult[r] += x[r][i] * y[i];
+        for (int c = 0; c < numCols1; c++) {
+            for (int r = 0; r < numRows1; r++) {
+                matrixResult[r] += x[r][c] * y[c];
             }
         }
         return matrixResult;
@@ -103,14 +101,60 @@ public class Ex1133MatrixAPI {
         }
         return matrixResult;
     }
+    public static double[] vectorMatrixProd(double[] y, double[][]x){ // ✅ checked
+        // (1 * numCols1) x (numRows2 * numCols2) = 1 * numCols2
+        if (y == null || x == null || y.length != x.length) throw new IllegalArgumentException();
+
+        int numRows1 = 1;
+        int numCols1 = y.length;
+
+        int numRows2 = x.length;
+        int numCols2 = x[0].length;
+
+        double[] matrixResult = new double[x[0].length];
+
+        for (int c = 0; c < numCols2; c++) {
+            for (int r = 0; r < numRows2; r++) {
+                matrixResult[c] += y[r] * x[r][c];
+            }
+        }
+        return matrixResult;
+    }
+    public static  double[][] matrixMatrixProduct(double[][] x, double[][] y){ // ✅ checked
+        // (numRows1 * numCols1) x (numRows2 * numCols2) = numRows1 * numCols2
+        if (x == null || y == null || x[0].length != y.length ) throw new IllegalArgumentException();
+
+        int numRows1 = x.length;
+        int numCols1 = x[0].length;
+
+        int numRows2 = y.length;
+        int numCols2 = y[0].length;
+
+        double[][] matrixResult = new double[numRows1][numCols2];
+
+        for (int r = 0; r < numRows1; r++) {
+            for (int c = 0; c < numCols2; c++) {
+                for (int i = 0; i < numRows2; i++) {
+                    matrixResult[r][c] += x[r][i] * y[i][c];
+                }
+            }
+        }
+        return matrixResult;
+    }
 
     public static void main(String[] args) {
-        double[] matrix1 = {1, 2 ,3};
+        double[][] matrix1 = {
+                {1, 2 ,3, 5},
+                {1, 2 ,3, 5},
+                {1, 2 ,3, 5},
+                {1, 2 ,3, 5}
+        };
         double[][] matrix2 = {
                 {1, 2 ,3},
                 {4, 5, 6},
-                {7, 8, 9}
+                {7, 8, 9},
+                {5, 5, 5}
         };
-        Printer.print(mult(matrix2, matrix1 ));
+        Printer.print(matrixMatrixProduct(matrix1, matrix2 ));
     }
 }
