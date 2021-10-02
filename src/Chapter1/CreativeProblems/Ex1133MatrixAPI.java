@@ -42,8 +42,8 @@ public class Ex1133MatrixAPI {
         int numCols2 = 1;
 
         double[] matrixResult = new double[numRows1];
-        for (int c = 0; c < numCols1; c++) {
-            for (int r = 0; r < numRows1; r++) {
+        for (int r = 0; r < numRows1; r++) {
+            for (int c = 0; c < numCols1; c++) {
                 matrixResult[r] += x[r][c] * y[c];
             }
         }
@@ -144,17 +144,11 @@ public class Ex1133MatrixAPI {
 
     public static void main(String[] args) {
         double[][] matrix1 = {
-                {1, 2 ,3, 5},
-                {1, 2 ,3, 5},
-                {1, 2 ,3, 5},
-                {1, 2 ,3, 5}
-        };
-        double[][] matrix2 = {
                 {1, 2 ,3},
-                {4, 5, 6},
-                {7, 8, 9},
-                {5, 5, 5}
+                {4, 5 ,6},
+                {7, 8 ,9},
         };
-        Printer.print(matrixMatrixProduct(matrix1, matrix2 ));
+        double[] matrix2 = {1, 2, 3};
+        Printer.print(vectorMatrixProd(matrix2, matrix1 ));
     }
 }
