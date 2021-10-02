@@ -2,7 +2,7 @@ package Chapter1.CreativeProblems;
 
 import edu.princeton.cs.algs4.StdOut;
 
-public class Ex1133MatrixAPI {
+public class Exe1133MatrixAPI {
     class Printer {
         public static void print(double[][] mat) {
             for (int i = 0; i < mat.length; i++) {

@@ -3,7 +3,7 @@ package Chapter1.CreativeProblems;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
-public class Ex1135DiceSimulation {
+public class Exe1135DiceSimulation {
     public static void main(String[] args) {
         double[] distExact = simulateDice();
         double[] distExperiment = experimentDice();

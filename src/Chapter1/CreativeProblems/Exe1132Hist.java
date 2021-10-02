@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Ex1132Hist {
+public class Exe1132Hist {
     public static void main(String[] args) {
         int N = Integer.parseInt(args[0]);
         double l = Double.parseDouble(args[1]);
