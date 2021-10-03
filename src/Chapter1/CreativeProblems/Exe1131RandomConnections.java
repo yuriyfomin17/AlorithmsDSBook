@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Exe1131RandomConnections {
     public static void main(String[] args) {
         double probability = 1;
-        int numberOfPoints = 10;
+        int numberOfPoints = 1000;
         drawCircle(numberOfPoints, probability);
 
     }
@@ -28,7 +28,7 @@ public class Exe1131RandomConnections {
         randomlyConnect(points, probability);
     }
     public static void randomlyConnect(double[][] points, double probability){
-        for (int i = 0; i < points.length; i++) {
+        for (int i = 0; i < points.length ; i++) {
             double curX = points[i][0];
             double curY = points[i][1];
             for (int j = 0; j < points.length; j++) {
