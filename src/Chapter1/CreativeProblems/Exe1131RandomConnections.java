@@ -1,34 +1,39 @@
 package Chapter1.CreativeProblems;
 
 import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdRandom;
+
+import java.util.Arrays;
 
 public class Exe1131RandomConnections {
     public static void main(String[] args) {
-//        double step = 2.5 / 50;
-//        StdDraw.setYscale(-0.1, 2.1);
-//        StdDraw.setXscale(-0.1, 2.1);
-//        for (double i = 0; i <= 2; i+= step) {
-//            StdDraw.point(i, circleFuncNeg(i));
-//            StdDraw.point(i, circleFuncPos(i));
-//        }
-        drawCircle(1, 1, 1, 5);
+        double probability = 1;
+        int numberOfPoints = 10;
+        drawCircle(numberOfPoints, probability);
 
     }
-    public static void drawCircle(double centerX, double centerY, double r, int numberOfPoints){
-        // for each x value we plot two points
-        double step = ((centerX + r) - (centerX - r)) / (numberOfPoints / 2);
-        StdDraw.setYscale(centerY - r - 0.2, centerY + r + 0.2);
-        StdDraw.setXscale(centerX - r - 0.2, centerX + r + 0.2);
-        StdDraw.setPenRadius(.01);
-        for (double i = centerX - r; i <= centerX + r; i+= step) {
-            StdDraw.point(i, circleFuncNeg(i, centerX, centerY));
-            StdDraw.point(i, circleFuncPos(i, centerX, centerY));
+    public static void drawCircle(int numberOfPoints, double probability) {
+        StdDraw.setCanvasSize(1024, 1024);
+        StdDraw.setScale(-1.0, 1.0);
+        StdDraw.setPenRadius(.005);
+        double[][] points = new double[numberOfPoints][2];
+        for (int i = 0; i < numberOfPoints; i++) {
+            double y = Math.sin(2 * Math.PI * i / numberOfPoints);
+            double x = Math.cos(2 * Math.PI * i / numberOfPoints);
+            StdDraw.point(x, y);
+            points[i][0] = x;
+            points[i][1] = y;
         }
+        StdDraw.setPenRadius();
+        randomlyConnect(points, probability);
     }
-    public static double circleFuncNeg(double x, double centerX, double centerY){
-        return centerY - Math.sqrt(1 - (x - centerX) * (x - centerX));
-    }
-    public static double circleFuncPos(double x, double centerX, double centerY){
-        return centerY + Math.sqrt(1 - (x - centerX) * (x - centerX));
+    public static void randomlyConnect(double[][] points, double probability){
+        for (int i = 0; i < points.length; i++) {
+            double curX = points[i][0];
+            double curY = points[i][1];
+            for (int j = 0; j < points.length; j++) {
+                if (StdRandom.bernoulli(probability)) StdDraw.line(curX, curY, points[j][0], points[j][1]);
+            }
+        }
     }
 }
