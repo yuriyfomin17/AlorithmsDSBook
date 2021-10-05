@@ -1,17 +1,18 @@
 package Chapter1Section2.ChapterExercises;
 
 import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdRandom;
 
 public class Exe121ClosestPoint {
     // Conclusion as you increase number of points minimum distance between them decreases
     public static void main(String[] args) {
-        int N = 500; // num of points
+        int N = 50; // num of points
         StdDraw.setScale(0, 1);
         StdDraw.setPenRadius(0.01);
         double[][] points = new double[N][2];
         for (int i = 0; i < N; i++) {
-            double randPointX = Math.random();
-            double randPointY = Math.random();
+            double randPointX = StdRandom.uniform();
+            double randPointY = StdRandom.uniform();
             points[i][0] = randPointX;
             points[i][1] = randPointY;
             StdDraw.point(randPointX, randPointY);
