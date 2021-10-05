@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.StdRandom;
 
 import java.util.ArrayList;
 
-public class Exe122Interval1Intersect {
+public class Exe122Interval1DIntersect {
     public static void main(String[] args) {
         int N = 50;
         Interval1D[] array = new Interval1D[N];

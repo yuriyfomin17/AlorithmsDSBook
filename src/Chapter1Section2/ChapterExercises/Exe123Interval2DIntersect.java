@@ -8,13 +8,10 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class Interval2Intersect {
+public class Exe123Interval2DIntersect {
     private static double min = 0;
     private static double max = 1;
-    public enum Comparison {
-        SMALLER,
-        BIGGER
-    }
+
     private static HashMap<Interval2D, Interval1D[]> hashMap = new HashMap<>();
     public static void main(String[] args) {
         checkThatTwoBoxContainedWithEachOther();
