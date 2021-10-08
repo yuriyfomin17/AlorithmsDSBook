@@ -66,6 +66,20 @@ public class Exe211SmartDate {
         return  day + "/" + month + "/" + year;
 
     }
+    @Override public boolean equals(Object anotherSmartDate){
+        if (this == anotherSmartDate) return true;
+        if (anotherSmartDate == null) return false;
+        if (getClass() != anotherSmartDate.getClass()){
+            return false;
+        }
+        Exe211SmartDate exe211SmartDate = (Exe211SmartDate) anotherSmartDate;
+
+        return this.day == exe211SmartDate.day && this.month == exe211SmartDate.month && this.year == exe211SmartDate.year;
+    }
+    @Override public final int hashCode(){
+        int result = 17;
+        return 31 * result + this.year + this.month + this.day;
+    }
 
     public static WeekDays getDayOfWeek(Exe211SmartDate exe211SmartDate){
         int aDay = exe211SmartDate.getDay();
