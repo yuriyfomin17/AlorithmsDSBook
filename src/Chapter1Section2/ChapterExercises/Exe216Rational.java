@@ -14,6 +14,7 @@ public class Exe216Rational {
         System.out.println(rationalNumber1.equals(rationalNumber2) + ": expected false");
         System.out.println(rationalNumber1);
         System.out.println(rationalNumber2);
+        System.out.println();
 
         Exe216Rational rationalNumber3 = new Exe216Rational(2, 6);
         Exe216Rational rationalNumber4 = new Exe216Rational(3, 18);
@@ -25,45 +26,66 @@ public class Exe216Rational {
         System.out.println(rationalNumber3.equals(rationalNumber4) + ": expected false");
         System.out.println(rationalNumber3);
         System.out.println(rationalNumber4);
+        System.out.println();
+
+        Exe216Rational rationalNumber5 = new Exe216Rational(1, 3);
+        Exe216Rational rationalNumber6 = new Exe216Rational(1, 3);
+
+        System.out.println(rationalNumber5.plus(rationalNumber6)+ ": expected 2/3");
+        System.out.println(rationalNumber5.minus(rationalNumber6) + ": expected 0/1");
+        System.out.println(rationalNumber5.times(rationalNumber6) + ": expected 1/9");
+        System.out.println(rationalNumber5.divides(rationalNumber6) + ": expected 1/1");
+        System.out.println(rationalNumber5.equals(rationalNumber6) + ": expected true");
+        System.out.println(rationalNumber5);
+        System.out.println(rationalNumber6);
+        System.out.println();
+
+        Exe216Rational rationalNumber7 = new Exe216Rational(1, 4);
+        Exe216Rational rationalNumber8 = new Exe216Rational(2, 3);
+
+        System.out.println(rationalNumber7.plus(rationalNumber8)+ ": expected 11/12");
+        System.out.println(rationalNumber7.minus(rationalNumber8) + ": expected -5/12");
+        System.out.println(rationalNumber7.times(rationalNumber8) + ": expected 1/6");
+        System.out.println(rationalNumber7.divides(rationalNumber8) + ": expected 3/8");
+        System.out.println(rationalNumber7.equals(rationalNumber8) + ": expected false");
+        System.out.println(rationalNumber7);
+        System.out.println(rationalNumber8);
+        System.out.println();
     }
     public Exe216Rational(long numerator, long denominator){
+
+        if (denominator == 0) throw new RuntimeException("Denominator cannot be 0");
+
         long commonFactor = euclidAlgorithm(numerator, denominator);
         numerator /= commonFactor;
         denominator /= commonFactor;
 
-        if (euclidAlgorithm(numerator, denominator) != 1) throw new IllegalArgumentException("This is not rational number!");
         this.numerator = numerator;
         this.denominator = denominator;
+        if (this.denominator < 0) {
+            this.denominator = -1 * this.denominator;
+            this.numerator = -1 * this.numerator;
+        }
     }
 
     public Exe216Rational plus(Exe216Rational aRationalNumber){
         long aNumerator = aRationalNumber.getNumerator();
         long aDenominator = aRationalNumber.getDenominator();
 
-        long commonDenominator;
-        if (aDenominator > this.denominator && aDenominator % this.denominator == 0) commonDenominator = aDenominator;
-        else if (this.denominator > aDenominator && this.denominator % aDenominator == 0) commonDenominator = this.denominator;
-        else commonDenominator = this.denominator * aDenominator;
+        long newDenominator = aDenominator * this.denominator;
+        long newNumerator = aNumerator * (newDenominator / aDenominator) +  this.numerator * (newDenominator / this.denominator);
 
-        long numerator1 = (commonDenominator / aDenominator) * aNumerator;
-        long numerator2 = (commonDenominator / this.denominator) * this.numerator;
-
-        return new Exe216Rational(numerator1 + numerator2, commonDenominator);
+        return new Exe216Rational(newNumerator, newDenominator);
     }
 
     public Exe216Rational minus(Exe216Rational aRationalNumber){
         long aNumerator = aRationalNumber.getNumerator();
         long aDenominator = aRationalNumber.getDenominator();
 
-        long commonDenominator;
-        if (aDenominator > this.denominator && aDenominator % this.denominator == 0) commonDenominator = aDenominator;
-        else if (this.denominator > aDenominator && this.denominator % aDenominator == 0) commonDenominator = this.denominator;
-        else commonDenominator = this.denominator * aDenominator;
+        long newDenominator = aDenominator * this.denominator;
+        long newNumerator = this.numerator * (newDenominator / this.denominator) - aNumerator * (newDenominator / aDenominator);
 
-        long numerator1 = (commonDenominator / aDenominator) * aNumerator;
-        long numerator2 = (commonDenominator / this.denominator) * this.numerator;
-
-        return new Exe216Rational(numerator2 - numerator1, commonDenominator);
+        return new Exe216Rational(newNumerator, newDenominator);
     }
     public Exe216Rational times(Exe216Rational aRationalNumber){
         long aNumerator = aRationalNumber.getNumerator();
@@ -71,11 +93,6 @@ public class Exe216Rational {
 
         long newNumerator = aNumerator * this.numerator;
         long newDenominator = aDenominator * this.denominator;
-
-        long commonFactor = euclidAlgorithm(newNumerator, newDenominator);
-
-        newNumerator /= commonFactor;
-        newDenominator /= commonFactor;
 
         return new Exe216Rational(newNumerator, newDenominator);
 
@@ -85,21 +102,21 @@ public class Exe216Rational {
         long aNumerator = aRationalNumber.getNumerator();
         long aDenominator = aRationalNumber.getDenominator();
 
-
-        long commonFactorNumeratorNumerator = euclidAlgorithm(aNumerator, this.numerator);
-        long commonFactorDenominatorDenominator = euclidAlgorithm(aDenominator, this.denominator);
-
-        long newNumerator = (this.numerator / commonFactorNumeratorNumerator) * (aDenominator / commonFactorDenominatorDenominator);
-
-        long newDenominator = (this.denominator / commonFactorDenominatorDenominator) * (aNumerator / commonFactorNumeratorNumerator);
+        long newNumerator = this.numerator * aDenominator;
+        long newDenominator = this.denominator * aNumerator;
 
         return new Exe216Rational(newNumerator, newDenominator);
 
     }
 
-    public boolean equals(Exe216Rational aRationalNumber){
-        long aNumerator = aRationalNumber.getNumerator();
-        long aDenominator = aRationalNumber.getDenominator();
+    @Override public boolean equals(Object aRationalNumber){
+        if (this == aRationalNumber) return true;
+        if (aRationalNumber == null) return false;
+        if (getClass() != aRationalNumber.getClass()) return false;
+
+        Exe216Rational exe216Rational =  (Exe216Rational) aRationalNumber;
+        long aNumerator = exe216Rational.getNumerator();
+        long aDenominator = exe216Rational.getDenominator();
 
         return this.numerator == aNumerator && this.denominator == aDenominator;
     }
