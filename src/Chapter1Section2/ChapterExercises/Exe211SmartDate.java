@@ -63,11 +63,8 @@ public class Exe211SmartDate {
 
     @Override
     public String toString() {
-        return "Exe211SmartDate{" +
-                "day=" + day +
-                ", month=" + month +
-                ", year=" + year +
-                '}';
+        return  day + "/" + month + "/" + year;
+
     }
 
     public static WeekDays getDayOfWeek(Exe211SmartDate exe211SmartDate){
@@ -98,11 +95,11 @@ public class Exe211SmartDate {
     }
 
     public static void main(String[] args) {
-//        for (int i = 2020; i <= 2050 ; i++) {
-//            if (isItLeapYear(i)) System.out.printf("%d is leap year\n", i);
-//            else System.out.printf("%d is not leap year\n", i);
-//        }
-        Exe211SmartDate smartDate1 = new Exe211SmartDate(12, 4, 2030);
-        System.out.println(getDayOfWeek(smartDate1));
+        for (int i = 2020; i <= 2050 ; i++) {
+            if (isItLeapYear(i)) System.out.printf("%d is leap year\n", i);
+            else System.out.printf("%d is not leap year\n", i);
+        }
+        Exe211SmartDate smartDate1 = new Exe211SmartDate(6, 10, 2021);
+        System.out.println(smartDate1 + " is " +getDayOfWeek(smartDate1));
     }
 }
