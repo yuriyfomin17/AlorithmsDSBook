@@ -53,7 +53,7 @@ public class Exe216Rational {
         System.out.println();
     }
     public Exe216Rational(long numerator, long denominator){
-
+        checkArguments(numerator, denominator);
         if (denominator == 0) throw new RuntimeException("Denominator cannot be 0");
 
         long commonFactor = euclidAlgorithm(numerator, denominator);
@@ -137,5 +137,12 @@ public class Exe216Rational {
         if (numerator % denominator == 0) return denominator;
         long remainder = numerator % denominator;
         return euclidAlgorithm(denominator, remainder);
+    }
+
+    public static void checkArguments(long numerator, long denominator){
+        assert numerator < Long.MAX_VALUE: "Positive Overflow numerator error!";
+        assert denominator < Long.MAX_VALUE: "Positive Overflow denominator error!";
+        assert numerator > Long.MIN_VALUE: "Negative Overflow numerator error!";
+        assert denominator > Long.MIN_VALUE: "Negative Overflow denominator error!";
     }
 }
