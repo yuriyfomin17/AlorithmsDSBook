@@ -1,4 +1,4 @@
-package Chapter1Section3;
+package Chapter1Section3.ChapterNotes;
 
 import edu.princeton.cs.algs4.Stack;
 

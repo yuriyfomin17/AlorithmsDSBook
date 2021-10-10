@@ -1,31 +1,32 @@
 package Chapter1Section3.ChapterNotes;
 
 
-public class StackLinkedListImplementation<Item> {
-    private int N = 0;
-    private Node firstNode;
+public class LIFOLinkedList<Item> {
+    private Node first; // top of stack (most recently added node)
+    private int N = 0; // number of items
 
+    public boolean isEmpty(){ return first == null;}
     public int size(){ return N;}
-    public boolean isEmpty(){ return firstNode == null;}
 
     public void push(Item item){
-        Node newFirst = new Node();
-        newFirst.item = item;
-        Node temp = firstNode;
-        firstNode = newFirst;
-        newFirst.next = temp;
+        // Add item to top of stack
+        Node oldFirst = first;
+        first = new Node();
+        first.item = item;
+        first.next = oldFirst;
         N++;
     }
     public Item pop(){
-        Item item = (Item) firstNode.item;
-        firstNode = firstNode.next;
+        // Remove item from top of stack
+        Item item = (Item) first.item;
+        first = first.next;
         N--;
         return item;
     }
 
     public static void main(String[] args) {
         String s = " to be or not to - be - - that -(- - is";
-        StackLinkedListImplementation<String> stringStackLinkedListImplementation = new StackLinkedListImplementation<>();
+        LIFOLinkedList<String> stringStackLinkedListImplementation = new LIFOLinkedList<>();
         for (int i = 0; i < s.length(); i++) {
             String currString = Character.toString(s.charAt(i));
             if (!currString.equals("-")) stringStackLinkedListImplementation.push(currString);
@@ -35,9 +36,4 @@ public class StackLinkedListImplementation<Item> {
         }
         System.out.println(stringStackLinkedListImplementation.size());
     }
-}
-
-class Node<Item> {
-    public Item item;
-    public Node next;
 }

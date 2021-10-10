@@ -1,10 +1,10 @@
 package Chapter1Section3.ChapterNotes;
 import java.util.Iterator;
-public class FixedCapacityStackOfStrings<Item>{
+public class LIFOArray<Item>{
     private Item[] a;
     private int N;
     private int i;
-    public FixedCapacityStackOfStrings(int cap) {
+    public LIFOArray(int cap) {
         a = (Item[]) new Object[cap];
     }
 
@@ -51,21 +51,23 @@ public class FixedCapacityStackOfStrings<Item>{
     }
 
     public static void main(String[] args) {
-        String s = " to be or not to - be - - that -(- - is";
-        FixedCapacityStackOfStrings<String> fixedCapacityStackOfStrings = new FixedCapacityStackOfStrings<String>(100);
-        for (int i = 0; i < s.length(); i++) {
-            String currString = Character.toString(s.charAt(i));
+        String s = "it was - the best - of times - - - it  was - the - -";
+        String[] s2 = {"it", "was", "-", "the", "best", "-", "of", "times", "-", "-", "-", "it", "was", "-", "the", "-", "-"};
+        LIFOArray<String> fixedCapacityStackOfStrings = new LIFOArray<String>(100);
+        for (int i = 0; i < s2.length; i++) {
+            String currString = s2[i];
             if (!currString.equals("-"))
                 fixedCapacityStackOfStrings.push(currString);
             else {
-                System.out.println("Element removed: " + fixedCapacityStackOfStrings.pop());
+                System.out.print(fixedCapacityStackOfStrings.pop() + " ");
             }
         }
+        System.out.println();
         System.out.printf("%d left on stack\n", fixedCapacityStackOfStrings.size() );
-        FixedCapacityStackOfStrings<String>.ReverseArrayIterator reverseArrayIterator = fixedCapacityStackOfStrings.new ReverseArrayIterator();
+        LIFOArray<String>.ReverseArrayIterator reverseArrayIterator = fixedCapacityStackOfStrings.new ReverseArrayIterator();
         while (reverseArrayIterator.hasNext()){
             String s1 = reverseArrayIterator.next();
-            System.out.println(s1);
+            System.out.print(s1);
         }
     }
 }
