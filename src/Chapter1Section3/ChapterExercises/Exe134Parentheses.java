@@ -39,6 +39,7 @@ public class Exe134Parentheses {
             if (!isClosingBracket(s1)) {
                 exe134Parentheses.push(s1);
             } else {
+                if (exe134Parentheses.isEmpty()) return false;
                 String openingBracket = exe134Parentheses.pop();
                 if (openingBracket.equals("(") && !s1.equals(")")) return false;
                 if (openingBracket.equals("{") && !s1.equals("}")) return false;
