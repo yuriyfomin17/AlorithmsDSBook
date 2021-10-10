@@ -1,9 +1,9 @@
 package Chapter1Section3.ChapterNotes;
-
-public class FixedCapacityStackOfStrings<Item> {
+import java.util.Iterator;
+public class FixedCapacityStackOfStrings<Item>{
     private Item[] a;
     private int N;
-
+    private int i;
     public FixedCapacityStackOfStrings(int cap) {
         a = (Item[]) new Object[cap];
     }
@@ -36,6 +36,18 @@ public class FixedCapacityStackOfStrings<Item> {
             temp[i] = a[i];
         }
         a = temp;
+    }
+
+    public boolean hasNext() { return i > 0;}
+    public Item next() { return a[--i];}
+
+    private class ReverseArrayIterator implements Iterator<Item>
+    { // Support LIFO iteration
+        private int i = N;
+        public boolean hasNext() { return  i > 0;}
+        public Item next() { return a[--i];}
+        public  void remove(){};
+
     }
 
     public static void main(String[] args) {
