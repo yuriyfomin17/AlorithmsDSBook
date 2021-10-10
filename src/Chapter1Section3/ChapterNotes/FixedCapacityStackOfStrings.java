@@ -51,16 +51,21 @@ public class FixedCapacityStackOfStrings<Item>{
     }
 
     public static void main(String[] args) {
-        String s = " to be or not to - be - - that - - - is";
+        String s = " to be or not to - be - - that -(- - is";
         FixedCapacityStackOfStrings<String> fixedCapacityStackOfStrings = new FixedCapacityStackOfStrings<String>(100);
         for (int i = 0; i < s.length(); i++) {
             String currString = Character.toString(s.charAt(i));
             if (!currString.equals("-"))
                 fixedCapacityStackOfStrings.push(currString);
             else {
-                System.out.printf("Element removed %s \n", fixedCapacityStackOfStrings.pop());
+                System.out.println("Element removed: " + fixedCapacityStackOfStrings.pop());
             }
         }
-        System.out.printf("%d left on stack", fixedCapacityStackOfStrings.size() );
+        System.out.printf("%d left on stack\n", fixedCapacityStackOfStrings.size() );
+        FixedCapacityStackOfStrings<String>.ReverseArrayIterator reverseArrayIterator = fixedCapacityStackOfStrings.new ReverseArrayIterator();
+        while (reverseArrayIterator.hasNext()){
+            String s1 = reverseArrayIterator.next();
+            System.out.println(s1);
+        }
     }
 }
