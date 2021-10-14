@@ -27,7 +27,7 @@ public class Exe1310InfixToPostfix {
         }
     }
     public static void main(String[] args) {
-        infixToPostFix("( ( 1 + 2 ) * ( 4 / 2 ) )");
+        infixToPostFix("( 1 + 2 ) *  (( 3 -4 ) * ( 5 - 6 ) )");
     }
     // ( 1 + 2 ) *  (( 3 -4 ) * ( 5 - 6 ) ) => 12+34-56-**
     public static void infixToPostFix(String expression){
@@ -45,9 +45,10 @@ public class Exe1310InfixToPostfix {
                 String num2 = numbers.pop();
                 String num1 = numbers.pop();
                 String operand = operands.pop();
-                result += num1 + " " + num2 + " " + operand + " ";
+                if (num1.equals("") && num2.equals("")) result +=  " " + operand;
+                else result += " " + num1 + " " + num2 + " " + operand;
             }
         }
-        System.out.println(result.trim());
+        System.out.println(result.trim() + operands.pop());
     }
 }
