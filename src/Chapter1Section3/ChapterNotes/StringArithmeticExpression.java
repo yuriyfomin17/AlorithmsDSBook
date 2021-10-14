@@ -5,11 +5,38 @@ import edu.princeton.cs.algs4.Stack;
 // Thank You E.W.Dijkstra for your work in 1960s
 public class StringArithmeticExpression {
     public static void main(String[] args) {
-        String  arithmeticExpression = "( 1 + ( ( 2 + 3) * ( 4 * 5 ) ) )";
+        String  arithmeticExpression = "( ( 1 + 2 ) * ( ( 3 -4 ) * ( 5 - 6 ) )";
+        djikstraAlgorithm(arithmeticExpression);
         processArithmeticExpression(arithmeticExpression);
 //        "( ( 1 + sqrt ( 5.0 ) ) / 2.0 )"
         String[]  arithmeticExpressionAlternative = {"(", "(", "1", "+", "sqrt", "(", "5", ")", ")", "/", "2", ")"};
         processArithmeticExpressionAlternative(arithmeticExpressionAlternative);
+    }
+
+    public static void djikstraAlgorithm(String expression){
+        Stack<String> ops  = new Stack<>();
+        Stack<Double> vals = new Stack<>();
+
+        for (int i = 0; i < expression.length(); i++) {
+            String s  = Character.toString(expression.charAt(i));
+            if (s.equals("(") || s.equals(" ")) continue;
+            else if (s.equals("+")) ops.push(s);
+            else if (s.equals("-")) ops.push(s);
+            else if (s.equals("*")) ops.push(s);
+            else if (s.equals("/")) ops.push(s);
+            else if (s.equals("sqrt")) ops.push(s);
+            else if (s.equals(")")){
+                String op = ops.pop();
+                double v = vals.pop();
+                if (op.equals("+"))  v = v + vals.pop();
+                else if (op.equals("-")) v = v - vals.pop();
+                else if (op.equals("*")) v = v * vals.pop();
+                else if (op.equals("/")) v = v / vals.pop();
+                else if (op.equals("sqrt")) v = Math.sqrt(v);
+                vals.push(v);
+            }else vals.push(Double.parseDouble(s));
+        }
+        System.out.println(vals.pop());
     }
 
     public static void processArithmeticExpression(String arithmeticExpression) {
