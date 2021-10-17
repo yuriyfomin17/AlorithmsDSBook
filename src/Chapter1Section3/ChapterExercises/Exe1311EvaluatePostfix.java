@@ -26,11 +26,15 @@ public class Exe1311EvaluatePostfix {
         }
     }
     public static void main(String[] args) {
-        evaluatePostFix("12+42/*");
+        postFixToInfixConverter("42+13-*");
+        evaluatePostfix("12+42/*");
+        evaluatePostfix("12+34-56-**");
+        evaluatePostfix("42+13-*");
     }
+    // infix => ( ( 4 + 2 ) * ( 1 - 3 ) ), postfix => 42+13-*
     // infix => ( ( 1 + 2 ) * ( 4 / 2 ) ), postfix => 1 2 + 4 2 / *
     // infix => ( 1 + 2 ) *  (( 3 -4 ) * ( 5 - 6 ) ), postfix => 12+34-56-**
-    public static void evaluatePostFix(String postFixExpression){
+    public static void postFixToInfixConverter(String postFixExpression){
         Stack numbers = new Stack();
         for (int i = 0; i < postFixExpression.length(); i++) {
             String s = Character.toString(postFixExpression.charAt(i));
@@ -44,5 +48,29 @@ public class Exe1311EvaluatePostfix {
 
         }
         System.out.println(numbers.pop());
+    }
+    public static void evaluatePostfix(String postfixExpression){
+        Stack numbers = new Stack();
+        for (int i = 0; i < postfixExpression.length(); i++) {
+            String s = Character.toString(postfixExpression.charAt(i));
+
+            if (s.equals("+") || s.equals("-") || s.equals("*") || s.equals("/")){
+                String num2 = numbers.pop();
+                String num1 = numbers.pop();
+                int result = processArithmeticExpression(s, num1, num2);
+                numbers.push(Integer.toString(result));
+
+            } else numbers.push(s);
+        }
+        System.out.println(numbers.pop());
+    }
+    public static int processArithmeticExpression(String operand, String num1, String num2){
+        int number1 = Integer.parseInt(num1);
+        int number2 = Integer.parseInt(num2);
+        if (operand.equals("+")) return number1 + number2;
+        if (operand.equals("-")) return number1 - number2;
+        if (operand.equals("*")) return number1 * number2;
+        if (operand.equals("/")) return number1 / number2;
+        return -1;
     }
 }
