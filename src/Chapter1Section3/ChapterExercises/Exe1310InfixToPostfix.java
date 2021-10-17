@@ -27,7 +27,7 @@ public class Exe1310InfixToPostfix {
         }
     }
     public static void main(String[] args) {
-        infixToPostFix("( 1 + 2 ) *  (( 3 -4 ) * ( 5 - 6 ) )");
+        infixToPostFix("( ( 1 + 2 ) * ( 4 / 2 ) )");
     }
     // ( 1 + 2 ) *  (( 3 -4 ) * ( 5 - 6 ) ) => 12+34-56-**
     public static void infixToPostFix(String expression){
