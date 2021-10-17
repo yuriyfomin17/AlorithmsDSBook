@@ -49,7 +49,7 @@ public class Exe1315QueueCommandLine {
     }
 
     public static void main(String[] args) {
-        int K = 4;
+        int K = 1;
         Queue queue  = new Queue();
         String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
         Queue.QueueIterator queueIterator = queue.new QueueIterator();
@@ -59,7 +59,7 @@ public class Exe1315QueueCommandLine {
         int count = 0;
         while (queueIterator.hasNext()){
             String s = queueIterator.next();
-            if (count == queue.size() - K) System.out.println(s);
+            if (count == queue.size() - (K)) System.out.println(s);
             count += 1;
 
         }
