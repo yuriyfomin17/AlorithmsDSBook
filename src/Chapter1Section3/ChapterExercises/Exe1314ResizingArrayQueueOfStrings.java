@@ -14,9 +14,10 @@ public class Exe1314ResizingArrayQueueOfStrings {
         public void enqueue(String s){
             a[last++] = s;
             N++;
-            if (last == a.length) resize(last * 2);
+            if (N == a.length) resize(a.length * 2);
         }
         public String dequeue(){
+            if (N == a.length / 4) resize( a.length / 2);
             if (isEmpty()) return "";
             N--;
             return a[first++];
@@ -24,8 +25,8 @@ public class Exe1314ResizingArrayQueueOfStrings {
 
         public void resize(int newSize){
             String[] newArr = new String[newSize];
-
-            for (int i = 0; i < N; i++) newArr[i] = a[i];
+            int count = 0;
+            for (int i = first; i < last; i++) newArr[count++] = a[i];
             this.first = 0;
             this.last = N;
             a = newArr;
