@@ -49,9 +49,9 @@ public class Exe1315QueueCommandLine {
     }
 
     public static void main(String[] args) {
-        int K = 1;
+        int K = 3;
         Queue queue  = new Queue();
-        String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+        String[] numbers = {"A", "B", "C", "D", "E", "F"};
         Queue.QueueIterator queueIterator = queue.new QueueIterator();
         for (int i = 0; i < numbers.length; i++) {
             queue.enqueue(numbers[i]);

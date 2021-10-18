@@ -26,10 +26,20 @@ public class Exe211SmartDate {
     }
 
     public Exe211SmartDate(int aDay, int aMonth, int aYear){
-        if (!isValidDate(aDay, aMonth, aYear)) throw new IllegalArgumentException("Not correct date");
+        if (!isValidDate(aDay, aMonth, aYear)) throw new IllegalArgumentException("Invalid date");
         this.day = aDay;
         this.month = aMonth;
         this.year = aYear;
+    }
+    public Exe211SmartDate(String date) {
+        String[] fields = date.split("/");
+        if (fields.length != 3) {
+            throw new IllegalArgumentException("Invalid date");
+        }
+        month = Integer.parseInt(fields[0]);
+        day   = Integer.parseInt(fields[1]);
+        year  = Integer.parseInt(fields[2]);
+        if (!isValidDate(day, month, year)) throw new IllegalArgumentException("Invalid date " + month + " " + day + " " + year);
     }
 
     public int getDay() {
