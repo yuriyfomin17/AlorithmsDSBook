@@ -1,5 +1,7 @@
 package Chapter1Section3.ChapterExercises;
 
+import edu.princeton.cs.algs4.StdOut;
+
 import java.util.Iterator;
 
 public class Exe1331DoubleLinkedList {
@@ -36,20 +38,6 @@ public class Exe1331DoubleLinkedList {
 
         public boolean isEmpty(){ return this.first == null; }
         public int size(){ return N; }
-        private class LinkedListIterator implements Iterator<Integer>{
-            private DoubleNode current = first;
-            @Override
-            public boolean hasNext() {
-                return current != null;
-            }
-
-            @Override
-            public Integer next() {
-                Integer num = current.item;
-                current = current.next;
-                return num;
-            }
-        }
         public void insertAtTheBeginning(int num){
             if (isEmpty()){
                 this.first = new DoubleNode();
@@ -104,6 +92,7 @@ public class Exe1331DoubleLinkedList {
         }
 
         public void insertBeforeGivenNode(DoubleNode beforeNode, int itemToInsert){
+            if (beforeNode == null) return;
             DoubleNode newNode = new DoubleNode();
             newNode.item = itemToInsert;
 
@@ -121,11 +110,10 @@ public class Exe1331DoubleLinkedList {
             newNode.next = afterNode.next;
             newNode.previous = afterNode;
             afterNode.next = newNode;
-            afterNode.next.previous = newNode;
             N++;
         }
         public void removeGivenNode(DoubleNode nodeToRemove){
-            if (isEmpty()) return;
+            if (nodeToRemove == null || isEmpty()) return;
             DoubleNode current = this.first;
 
             while (current != null && current != nodeToRemove) current = current.next;
@@ -136,25 +124,60 @@ public class Exe1331DoubleLinkedList {
                 nodeToRemove.next.previous = nodeToRemove.previous;
             }
         }
+        private class LinkedListIterator implements Iterator<Integer>{
+            private DoubleNode current = first;
+            @Override
+            public boolean hasNext() {
+                return current != null;
+            }
+
+            @Override
+            public Integer next() {
+                Integer num = current.item;
+                current = current.next;
+                return num;
+            }
+        }
+
+        public String toString(){
+            LinkedListIterator linkedListIterator = new LinkedListIterator();
+            String result = "";
+            while (linkedListIterator.hasNext()){
+                result =  result + " " + linkedListIterator.next();
+            }
+            return result.trim();
+        }
     }
 
 
     public static void main(String[] args) {
-        int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         LinkedList linkedList = new LinkedList();
 //        for (int i = 0; i < numbers.length; i++) linkedList.push(numbers[i]);
 
-        linkedList.insertAtTheBeginning(1);
+        linkedList.insertAtTheBeginning(10);
+        linkedList.insertAtTheBeginning(30);
+        linkedList.insertAtTheEnd(999);
 
-        DoubleNode doubleNode = linkedList.find(1);
+        StdOut.println("Doubly linked list items after initial insert: " + linkedList);
+        StdOut.println("Expected: 30 10 999");
 
+        linkedList.insertBeforeGivenNode(linkedList.find(9999), 998);
+        linkedList.insertBeforeGivenNode(linkedList.find(999), 997);
 
-        linkedList.removeGivenNode(doubleNode);
+        StdOut.println("\nDoubly linked list items after insert before 999: " + linkedList);
+        StdOut.println("Expected: 30 10 997 999");
 
-        LinkedList.LinkedListIterator linkedListIterator = linkedList.new LinkedListIterator();
+        linkedList.insertAfterGivenNode(linkedList.find(10), 11);
+        StdOut.println("\nDoubly linked list items after insert after 10: " + linkedList);
+        StdOut.println("Expected: 30 10 11 997 999");
 
-        while (linkedListIterator.hasNext()) System.out.print(" " + linkedListIterator.next());
+        linkedList.removeFromBeginning();
+        linkedList.removeFromTheEnd();
 
+        linkedList.removeGivenNode(linkedList.find(11));
+
+        StdOut.println("\nDoubly linked list items after deletions: " + linkedList);
+        StdOut.println("Expected: 10 997");
 
     }
 }
