@@ -45,8 +45,8 @@ public class Exe1331DoubleLinkedList {
 
             @Override
             public Integer next() {
-                Integer num = (Integer) current.item;
-                current = (DoubleNode) current.next;
+                Integer num = current.item;
+                current = current.next;
                 return num;
             }
         }
