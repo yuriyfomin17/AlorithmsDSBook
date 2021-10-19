@@ -98,7 +98,7 @@ public class Exe1331DoubleLinkedList {
         }
         public void removeFromTheEnd(){
             if (isEmpty()) return;
-            this.last = (DoubleNode) this.last.previous;
+            this.last = this.last.previous;
             this.last.next = null;
             N--;
         }
