@@ -38,6 +38,7 @@ public class Exe1329QueueCircular {
 
         private class QueueIterator implements Iterator<Integer>{
             private Node current = last.next;
+            // keep track that it is beginning of the iteration hence condition current != last.next can be avoided
             private boolean start = true;
             @Override
             public boolean hasNext() {
