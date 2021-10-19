@@ -55,9 +55,9 @@ public class Exe1326Remove {
     public static void main(String[] args) {
         String[] numbers = {"1", "2", "3", "5", "5" , "6", "6", "6", "7", "7", "8", "9", "10"};
         LinkedList linkedList = new LinkedList();
-        for (int i = 0; i < numbers.length; i++) {
-            linkedList.push(numbers[i]);
-        }
+
+        for (int i = 0; i < numbers.length; i++) linkedList.push(numbers[i]);
+
         LinkedList.LinkedListIterator linkedListIterator = linkedList.new LinkedListIterator();
         while (linkedListIterator.hasNext()) System.out.print(" " + linkedListIterator.next());
         System.out.println();
