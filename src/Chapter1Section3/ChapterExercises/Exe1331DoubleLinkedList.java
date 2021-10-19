@@ -52,42 +52,56 @@ public class Exe1331DoubleLinkedList {
             }
         }
         public void insertAtTheBeginning(int num){
-            if (isEmpty()) return;
+            if (isEmpty()){
+                this.first = new DoubleNode();
+                this.first.item = num;
+                this.last = this.first;
+                this.last.previous = this.first;
+            }else {
+                DoubleNode oldFirst = this.first;
 
-            DoubleNode oldFirst = this.first;
-
-            this.first = new DoubleNode();
-            this.first.item = num;
-            this.first.next = oldFirst;
-            oldFirst.previous = this.first;
+                this.first = new DoubleNode();
+                this.first.item = num;
+                this.first.next = oldFirst;
+                oldFirst.previous = this.first;
+            }
+            N++;
 
         }
         public DoubleNode find(int key){
             DoubleNode current = this.first;
-            while (current != null && current.item != (Integer)key) current = (DoubleNode) current.next;
+            while (current != null && current.item != key) current = (DoubleNode) current.next;
             return current;
         }
         public void removeFromBeginning(){
             if (isEmpty()) return;
-            this.first = (DoubleNode) this.first.next;
+            this.first =  this.first.next;
+            N--;
         }
 
         public void insertAtTheEnd(int num){
-            if (isEmpty()) return;
+            if (isEmpty()) {
+                this.first = new DoubleNode();
+                this.first.item = num;
+                this.last = this.first;
+                this.last.previous = this.first;
+            }else {
+                DoubleNode oldLast = this.last;
 
-            DoubleNode oldLast = this.last;
+                this.last = new DoubleNode();
+                this.last.item = num;
+                this.last.next = null;
 
-            this.last = new DoubleNode();
-            this.last.item = num;
-            this.last.next = null;
-
-            oldLast.next = this.last;
-            this.last.previous = oldLast;
+                oldLast.next = this.last;
+                this.last.previous = oldLast;
+            }
+            N++;
         }
         public void removeFromTheEnd(){
             if (isEmpty()) return;
             this.last = (DoubleNode) this.last.previous;
             this.last.next = null;
+            N--;
         }
 
         public void insertBeforeGivenNode(DoubleNode beforeNode, int itemToInsert){
@@ -98,6 +112,7 @@ public class Exe1331DoubleLinkedList {
             newNode.previous = beforeNode.previous;
             beforeNode.previous.next = newNode;
             beforeNode.previous = newNode;
+            N++;
         }
 
         public void insertAfterGivenNode(DoubleNode afterNode, int itemToInsert){
@@ -108,15 +123,19 @@ public class Exe1331DoubleLinkedList {
             newNode.previous = afterNode;
             afterNode.next = newNode;
             afterNode.next.previous = newNode;
+            N++;
         }
         public void removeGivenNode(DoubleNode nodeToRemove){
+            if (isEmpty()) return;
             DoubleNode current = this.first;
 
             while (current != null && current != nodeToRemove) current = current.next;
 
-            nodeToRemove.previous.next = nodeToRemove.next;
-            nodeToRemove.next.previous = nodeToRemove.previous;
-
+            if (size() == 1 && nodeToRemove == current) this.first = null;
+            else {
+                nodeToRemove.previous.next = nodeToRemove.next;
+                nodeToRemove.next.previous = nodeToRemove.previous;
+            }
         }
     }
 
@@ -124,18 +143,19 @@ public class Exe1331DoubleLinkedList {
     public static void main(String[] args) {
         int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         LinkedList linkedList = new LinkedList();
-        for (int i = 0; i < numbers.length; i++) linkedList.push(numbers[i]);
+//        for (int i = 0; i < numbers.length; i++) linkedList.push(numbers[i]);
 
-        linkedList.insertAtTheBeginning(0);
-        linkedList.removeFromBeginning();
-        linkedList.insertAtTheEnd(11);
-        linkedList.removeFromTheEnd();
-        LinkedList.LinkedListIterator linkedListIterator = linkedList.new LinkedListIterator();
-        DoubleNode doubleNode = linkedList.find(5);
-        linkedList.insertBeforeGivenNode(doubleNode, -5);
-        linkedList.insertAfterGivenNode(doubleNode, -5);
+        linkedList.insertAtTheBeginning(1);
+
+        DoubleNode doubleNode = linkedList.find(1);
+
+
         linkedList.removeGivenNode(doubleNode);
+
+        LinkedList.LinkedListIterator linkedListIterator = linkedList.new LinkedListIterator();
+
         while (linkedListIterator.hasNext()) System.out.print(" " + linkedListIterator.next());
+
 
     }
 }
