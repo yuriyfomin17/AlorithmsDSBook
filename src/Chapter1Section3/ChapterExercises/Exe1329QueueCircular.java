@@ -18,13 +18,15 @@ public class Exe1329QueueCircular {
                 this.last.next = lastOld.next;
                 lastOld.next = this.last;
             }
-
             N++;
         }
 
         public int dequeue(){
             int num = (int) this.last.next.item;
+            // if the last element is the same as first one, simply set the last to null which automatically sets the
+            // the first element to null
             if (this.last == this.last.next) this.last = null;
+            // this.last.next is the fist element. Hence, this.first = this.first.next => this.last.next = this.last.next.next;
             else this.last.next = this.last.next.next;
             N--;
             return num;
