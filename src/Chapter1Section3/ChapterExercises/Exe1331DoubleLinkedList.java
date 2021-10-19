@@ -38,7 +38,6 @@ public class Exe1331DoubleLinkedList {
         public int size(){ return N; }
         private class LinkedListIterator implements Iterator<Integer>{
             private DoubleNode current = first;
-            private boolean start = true;
             @Override
             public boolean hasNext() {
                 return current != null;
@@ -57,7 +56,7 @@ public class Exe1331DoubleLinkedList {
                 this.first.item = num;
                 this.last = this.first;
                 this.last.previous = this.first;
-            }else {
+            } else {
                 DoubleNode oldFirst = this.first;
 
                 this.first = new DoubleNode();
@@ -85,7 +84,7 @@ public class Exe1331DoubleLinkedList {
                 this.first.item = num;
                 this.last = this.first;
                 this.last.previous = this.first;
-            }else {
+            } else {
                 DoubleNode oldLast = this.last;
 
                 this.last = new DoubleNode();
