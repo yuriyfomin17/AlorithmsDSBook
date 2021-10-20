@@ -101,6 +101,7 @@ public class Exe1333DequeLinkedList {
     }
 
     public static void main(String[] args) {
+
         testPushLeft();
         testPushRight();
         testPopLeft();
