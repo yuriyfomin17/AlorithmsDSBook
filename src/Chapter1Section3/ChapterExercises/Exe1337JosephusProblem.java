@@ -27,29 +27,24 @@ public class Exe1337JosephusProblem {
     }
 
     public static void main(String[] args) {
-        testJoseph();
-        toBinaryString(7);
+        testJoseph(41, 2);
     }
 
-    public static void testJoseph(){
-        int N = 41;
-        int M = 2;
+    public static void testJoseph(int numberOfPeople, int personOrder){
         Queue queue = new Queue();
-
-        for (int i = 0; i < N; i++) queue.enqueue(i);
-
+        for (int i = 0; i < numberOfPeople; i++) queue.enqueue(i);
         int count = 1;
         int lastNumber = 0;
         while (!queue.isEmpty()){
             Node node = queue.dequeue();
             lastNumber = (int) node.item;
-            if (count == M ) {
+            if (count == personOrder ) {
                 System.out.print(" " + node.item);
                 count = 0;
             } else queue.enqueue(node.item);
             count += 1;
         }
-        String correctResult = getJosephCorrectResult(N);
+        String correctResult = getJosephCorrectResult(numberOfPeople);
 
         // we are beginning with 0 hence to convert to human numbers add 1
         String lastNumberBinaryString = toBinaryString(lastNumber + 1);
