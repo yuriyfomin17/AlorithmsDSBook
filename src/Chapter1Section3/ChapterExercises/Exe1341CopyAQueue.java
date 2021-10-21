@@ -94,7 +94,7 @@ public class Exe1341CopyAQueue {
         System.out.println("Expected: 2 3 4");
         System.out.println();
 
-        System.out.println("Queue Copy: " + queueCopy);
+        System.out.println("Queue2: " + queueCopy);
         System.out.println("Expected: 3 4 5 99");
 
     }
