@@ -17,6 +17,7 @@ public class Exe1340MoveToFront {
                 this.first = new Node();
                 this.first.item = item;
                 this.first.next = oldFirst;
+                size++;
             } else {
                 Node current = this.first;
                 Node previous = this.first;
