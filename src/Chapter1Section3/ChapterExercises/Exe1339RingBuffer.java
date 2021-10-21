@@ -27,7 +27,8 @@ public class Exe1339RingBuffer {
             if (isEmpty()) return false;
             readPos++;
             readPos = readPos % ringBuffer.length;
-            return false;
+            size--;
+            return true;
         }
         // return first element
         public int Front(){
