@@ -77,8 +77,12 @@ public class Exe1342CopyStack {
         for (int i = 0; i < numbers.length; i++) originalStack.push(new Node(numbers[i]));
         System.out.println("Original Stack Before Copy: " + originalStack);
         Stack stackCopy = new Stack(originalStack);
+        System.out.println();
         System.out.println("Original Stack After Copy: " + originalStack);
+        System.out.println("Expected: " + "10 9 8 7 6 5 4 3 2 1");
         System.out.println("Copy Stack after Copy: " + stackCopy);
+        System.out.println("Expected: " + "10 9 8 7 6 5 4 3 2 1");
+        System.out.println();
     }
     public static void testCopyStack2(){
         Stack originalStack = new Stack();
