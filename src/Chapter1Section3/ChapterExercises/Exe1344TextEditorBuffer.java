@@ -1,11 +1,9 @@
 package Chapter1Section3.ChapterExercises;
 
+import java.util.Iterator;
+
 public class Exe1344TextEditorBuffer {
-    public static void main(String[] args) {
-
-    }
-
-    static class Buffer {
+    static class TextEditor {
 
         private Node left = null;
         private Node beginningLeft = null;
@@ -20,32 +18,42 @@ public class Exe1344TextEditorBuffer {
         public void insert(char c) {
             Node newNode = new Node();
             newNode.item = c;
-            if (cursorEmpty()) {
-                if (left == null) {
-                    this.left = newNode;
-                    this.left.side = Node.Side.RIGHT;
-                    this.beginningLeft = this.left;
-                }
-                if (right == null) {
-                    this.right = newNode;
-                    this.right.side = Node.Side.RIGHT;
-                    this.beginningRight = this.right;
-                }
-            } else {
-                Node previous = this.cursor.previous;
+            if (left == null) {
+                this.left = newNode;
+                this.left.side = Node.Side.LEFT;
+                this.beginningLeft = this.left;
+            } else if (right == null) {
+                this.right = newNode;
+                this.right.side = Node.Side.RIGHT;
+                this.beginningRight = this.right;
+                this.beginningRight.previous = this.beginningLeft;
+            } else if (this.cursor.side == Node.Side.LEFT){
+                newNode.side = Node.Side.LEFT;
+                Node previous = this.cursor.next;
+                Node next = this.cursor.previous != null ? this.cursor.previous: this.beginningLeft;
+
+                newNode.next = previous;
+                newNode.previous = next;
+
+                if (previous != null) previous.previous = newNode;
+                if (next != null) next.next = newNode;
+
+            } else if( this.cursor.side == Node.Side.RIGHT){
+                newNode.side = Node.Side.RIGHT;
+                Node previous = this.cursor.previous != null ? this.cursor.previous : this.beginningRight;
                 Node next = this.cursor.next;
-                if (previous != null) newNode.side = previous.side;
-                if (next != null) newNode.side = next.side;
-                previous.next = newNode;
+
                 newNode.previous = previous;
-
                 newNode.next = next;
-                next.previous = newNode;
 
+                if (previous != null) previous.next = newNode;
+
+                if (next != null) next.previous = newNode;
             }
             this.cursor = newNode;
             if (this.cursor.side == Node.Side.RIGHT) this.rightN++;
             if (this.cursor.side == Node.Side.LEFT) this.leftN++;
+            if (beginningLeft.previous == null) this.beginningLeft.previous = this.beginningRight;
         }
 
         public char delete() {
@@ -99,5 +107,45 @@ public class Exe1344TextEditorBuffer {
         public boolean cursorEmpty() {
             return cursor == null;
         }
+        public String toString(){
+            BufferIterator bufferIterator = new BufferIterator();
+            String result = "";
+            while (bufferIterator.hasNext()) result += " " + bufferIterator.next();
+            return result;
+        }
+
+        private class BufferIterator implements Iterator<Character>{
+            private Node current = left;
+            @Override
+            public boolean hasNext() {
+                return current != null;
+            }
+
+            @Override
+            public Character next() {
+                char c = (char) current.item;
+                if (current.side == Node.Side.LEFT) current = current.previous;
+                else if (current.side == Node.Side.RIGHT) current = current.next;
+                return c;
+            }
+        }
     }
+
+    public static void main(String[] args) {
+        TextEditor textEditor = new TextEditor();
+        try {
+            textEditor.insert('y');
+            textEditor.insert('u');
+            textEditor.insert('r');
+            textEditor.insert('i');
+            textEditor.insert('y');
+            System.out.println("Text Editor: " + textEditor);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+
 }

@@ -8,7 +8,7 @@ class Node<Item> {
     public Item item;
     public Node next;
     public Node previous;
-    public Side side;
+    public Side side = Side.LEFT;
 
     public Node(Item anItem){
         this.item =  anItem;
@@ -23,6 +23,7 @@ class Node<Item> {
         }
         if (item instanceof Integer) return Integer.toString((int)item);
         if (item instanceof String) return (String) item;
+        if (item instanceof Character) return Character.toString((char)item) ;
         else return "Not a string";
     }
 }
