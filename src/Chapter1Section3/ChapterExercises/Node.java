@@ -1,8 +1,14 @@
 package Chapter1Section3.ChapterExercises;
 
 class Node<Item> {
+    enum Side{
+        LEFT,
+        RIGHT
+    }
     public Item item;
     public Node next;
+    public Node previous;
+    public Side side;
 
     public Node(Item anItem){
         this.item =  anItem;
