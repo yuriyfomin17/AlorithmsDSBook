@@ -23,6 +23,7 @@ public class Exe133Combinations {
         public Item pop(){
             if (isEmpty()) return null;
             Item item = (Item) this.first.item;
+            this.first = this.first.next;
             N++;
             return item;
         }
