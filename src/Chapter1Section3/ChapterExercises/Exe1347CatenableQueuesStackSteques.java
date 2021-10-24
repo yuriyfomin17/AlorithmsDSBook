@@ -106,19 +106,35 @@ public class Exe1347CatenableQueuesStackSteques<Item> {
             return result;
         }
 
-        public static void stequeCatenation(Steque steque1, Steque steque2){
+        public static Queue queueCatenation(Queue queue1, Queue queue2){
+            Queue newQueue = new Queue();
+            CircularLinkedList circularLinkedList = new CircularLinkedList();
+            while (!queue1.isEmpty()) {
+                Node node = queue1.dequeue();
+                newQueue.enqueue(new Node(node.item));
+            }
+            return newQueue;
+        }
+
+        public static Steque stequeCatenation(Steque steque1, Steque steque2){
             Steque newSteque = new Steque();
             CircularLinkedList circularLinkedListBuffer = new CircularLinkedList();
+
             while (!steque1.isEmpty()) circularLinkedListBuffer.push(steque1.pop());
+            while (!circularLinkedListBuffer.isEmpty()) {
+                Node node = circularLinkedListBuffer.removeLeft();
+                newSteque.push(new Node(node.item));
+
+            }
+
             while (!steque2.isEmpty()) circularLinkedListBuffer.push(steque2.pop());
-            System.out.println("Buffer: " + circularLinkedListBuffer);
-            CircularLinkedList.CircularLinkedListIterator circularLinkedListIterator = circularLinkedListBuffer.new CircularLinkedListIterator();
-            System.out.println("Normal Order");
-            while (circularLinkedListIterator.hasNext()) System.out.print(" " + circularLinkedListIterator.next());
-            System.out.println();
-            System.out.println("Reversed");
-            while (circularLinkedListIterator.hasNextReverse()) System.out.print(" " + circularLinkedListIterator.nextReverse());
-//            return newSteque;
+            while (!circularLinkedListBuffer.isEmpty()) {
+
+                Node node = circularLinkedListBuffer.removeLeft();
+                newSteque.push(new Node(node.item));
+            }
+
+            return newSteque;
         }
     }
     static class CircularLinkedList<Item>{
@@ -143,6 +159,23 @@ public class Exe1347CatenableQueuesStackSteques<Item> {
         }
         public boolean isEmpty(){ return N == 0; }
         public int size(){ return N; }
+
+        public Node removeLeft(){
+            if (isEmpty()) return null;
+            Node node = this.last.next;
+            if (size() == 1) this.last = null;
+            else this.last.next = this.last.next.next;
+            N--;
+            return node;
+        }
+        public Node removeRight(){
+            if (isEmpty()) return null;
+            Node node = this.last;
+            if (size() == 1) this.last = null;
+            else this.last = this.last.previous;
+            N--;
+            return node;
+        }
 
         @Override
         public String toString(){
@@ -249,7 +282,8 @@ public class Exe1347CatenableQueuesStackSteques<Item> {
         steque2.enqueue(new Node(5));
         steque2.enqueue(new Node(6));
 
-        Steque.stequeCatenation(steque1, steque2);
+        Steque catenationSteque = Steque.stequeCatenation(steque1, steque2);
+        System.out.println("Catenation Steque: " + catenationSteque);
 
 
     }
