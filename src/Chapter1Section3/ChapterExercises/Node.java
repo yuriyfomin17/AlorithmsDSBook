@@ -18,9 +18,7 @@ class Node<Item> {
 
     }
     public String toString(){
-        if (item instanceof Node node) {
-            return node.item.toString();
-        }
+        if (item instanceof Node node && item instanceof Integer) return node.item.toString();
         if (item instanceof Integer) return Integer.toString((int)item);
         if (item instanceof String) return (String) item;
         if (item instanceof Character) return Character.toString((char)item) ;
