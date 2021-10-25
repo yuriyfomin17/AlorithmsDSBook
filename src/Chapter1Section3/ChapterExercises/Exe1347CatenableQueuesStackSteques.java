@@ -5,27 +5,26 @@ import java.util.Iterator;
 public class Exe1347CatenableQueuesStackSteques<Item> {
     static class Stack{
         private int N = 0;
-        private Node last = null;
-
+        private Node first = null;
         public void push(Node newNode){
-            Node oldLast = this.last;
-            this.last = newNode;
-            if (!isEmpty()) this.last.next = oldLast;
+            Node oldLast = this.first;
+            this.first = newNode;
+            if (!isEmpty()) this.first.next = oldLast;
             N++;
         }
         public Node pop(){
-            Node lastNode = this.last;
-            this.last = this.last.next;
+            Node lastNode = this.first;
+            this.first = this.first.next;
             N--;
             return lastNode;
         }
-        public boolean isEmpty(){ return this.last == null; }
+        public boolean isEmpty(){ return N == 0; }
         public int size(){ return N; }
 
         @Override
         public String toString(){
             String result = "";
-            DSIterator dsIterator = new DSIterator(this.last);
+            DSIterator dsIterator = new DSIterator(this.first);
             while (dsIterator.hasNext()) result+= " " + dsIterator.next();
             return result;
         }
@@ -106,35 +105,44 @@ public class Exe1347CatenableQueuesStackSteques<Item> {
             return result;
         }
 
+        public static CircularLinkedList stackCatenation(Stack stack1, Stack stack2){
+            Stack newStack = new Stack();
+            CircularLinkedList circularLinkedList = new CircularLinkedList();
+            // 3 2 1 0
+            while (!stack1.isEmpty()){
+                Node node = stack1.pop();
+                circularLinkedList.push(new Node(node.item));
+            }
+            // 9 8 7
+            while (!stack2.isEmpty()){
+                Node node = stack2.pop();
+                circularLinkedList.push(new Node(node.item));
+            }
+            return circularLinkedList;
+        }
+
         public static Queue queueCatenation(Queue queue1, Queue queue2){
             Queue newQueue = new Queue();
-            CircularLinkedList circularLinkedList = new CircularLinkedList();
             while (!queue1.isEmpty()) {
                 Node node = queue1.dequeue();
+                newQueue.enqueue(new Node(node.item));
+            }
+            while (!queue2.isEmpty()){
+                Node node = queue2.dequeue();
                 newQueue.enqueue(new Node(node.item));
             }
             return newQueue;
         }
 
-        public static Steque stequeCatenation(Steque steque1, Steque steque2){
+        public static CircularLinkedList stequeCatenation(Steque steque1, Steque steque2){
             Steque newSteque = new Steque();
             CircularLinkedList circularLinkedListBuffer = new CircularLinkedList();
-
+            // 0 1 2 3
             while (!steque1.isEmpty()) circularLinkedListBuffer.push(steque1.pop());
-            while (!circularLinkedListBuffer.isEmpty()) {
-                Node node = circularLinkedListBuffer.removeLeft();
-                newSteque.push(new Node(node.item));
-
-            }
-
+            // 7 8 9
             while (!steque2.isEmpty()) circularLinkedListBuffer.push(steque2.pop());
-            while (!circularLinkedListBuffer.isEmpty()) {
 
-                Node node = circularLinkedListBuffer.removeLeft();
-                newSteque.push(new Node(node.item));
-            }
-
-            return newSteque;
+            return circularLinkedListBuffer;
         }
     }
     static class CircularLinkedList<Item>{
@@ -265,27 +273,56 @@ public class Exe1347CatenableQueuesStackSteques<Item> {
     }
 
     public static void main(String[] args) {
+        testQueueCatenation();
+        testStackCatenation();
         testStequeCatenation();
+    }
+
+    public static void testQueueCatenation(){
+        Queue queue1 = new Queue();
+        queue1.enqueue(new Node(0));
+        queue1.enqueue(new Node(1));
+        queue1.enqueue(new Node(2));
+        queue1.enqueue(new Node(3));
+
+        Queue queue2 = new Queue();
+        queue2.enqueue(new Node(7));
+        queue2.enqueue(new Node(8));
+        queue2.enqueue(new Node(9));
+
+        Queue catenationQueue = Steque.queueCatenation(queue1, queue2);
+        System.out.println("Catenation Queue: " + catenationQueue);
+        System.out.println("Expected: 0 1 2 3 7 8 9");
+    }
+    public static void testStackCatenation(){
+        Stack stack1 = new Stack();
+        stack1.push(new Node(0));
+        stack1.push(new Node(1));
+        stack1.push(new Node(2));
+        stack1.push(new Node(3));
+
+        Stack stack2 = new Stack();
+        stack2.push(new Node(7));
+        stack2.push(new Node(8));
+        stack2.push(new Node(9));
+
+        CircularLinkedList circularLinkedList = Steque.stackCatenation(stack1, stack2);
+        System.out.println("CircularLinkedList: " + circularLinkedList);
     }
     public static void testStequeCatenation(){
         Steque steque1 = new Steque();
-        steque1.push(new Node(1));
-        steque1.push(new Node(2));
-        steque1.push(new Node(3));
-        steque1.enqueue(new Node(5));
-        steque1.enqueue(new Node(6));
+        steque1.enqueue(new Node(0));
+        steque1.enqueue(new Node(1));
+        steque1.enqueue(new Node(2));
+        steque1.enqueue(new Node(3));
 
         Steque steque2 = new Steque();
-        steque2.push(new Node(1));
-        steque2.push(new Node(2));
-        steque2.push(new Node(3));
-        steque2.enqueue(new Node(5));
-        steque2.enqueue(new Node(6));
+        steque2.push(new Node(7));
+        steque2.push(new Node(8));
+        steque2.push(new Node(9));
 
-        Steque catenationSteque = Steque.stequeCatenation(steque1, steque2);
-        System.out.println("Catenation Steque: " + catenationSteque);
-
-
+        CircularLinkedList circularLinkedList = Steque.stequeCatenation(steque1, steque2);
+        System.out.println("Catenation Steque: " + circularLinkedList);
     }
     public static void testLinkedList(){
         CircularLinkedList circularLinkedList = new CircularLinkedList();
