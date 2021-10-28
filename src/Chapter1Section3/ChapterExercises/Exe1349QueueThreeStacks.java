@@ -1,6 +1,14 @@
 package Chapter1Section3.ChapterExercises;
-
+/**
+ * Good discussion about why queue with 3 stacks can't be implemented
+ * https://stackoverflow.com/questions/5538192/how-to-implement-a-queue-with-three-stacks/
+ * Here one solution is based on stack overflow answer
+ *
+ * Another solution is based on https://ecommons.cornell.edu/bitstream/handle/1813/6273/80-433.pdf?sequence=1&isAllowed=y
+ *
+ */
 public class Exe1349QueueThreeStacks {
+
     static class Stack<Item>{
         private int N = 0;
         private Node first = null;
@@ -20,7 +28,7 @@ public class Exe1349QueueThreeStacks {
         public int size(){ return N; }
         public boolean isEmpty(){ return first == null; }
     }
-    static class Queue<Item>{
+    static class QueueStackOverFlow<Item>{
         private int N = 0;
         private Stack stack1 = new Stack();
         private Stack stack2 = stack1;
@@ -46,10 +54,35 @@ public class Exe1349QueueThreeStacks {
         public int size(){ return N; }
         public boolean isEmpty(){ return stack1.isEmpty(); }
     }
+
+    static class QueueCornellPaper<Item>{
+
+        // returns the front element of the queue
+        public Item query(){
+            return null;
+        }
+
+        // returns and deletes the front element of the queue
+        public Item delete(){
+            return null;
+        }
+
+        // inserted element to the end of the queue
+        public void insert(){
+
+        }
+
+    }
     public static void main(String[] args) {
-        Queue queue = new Queue();
+
+    }
+    static void testStackOverFlowPaper(){
+        QueueStackOverFlow queue = new QueueStackOverFlow();
         int[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         for (int i = 0; i < numbers.length; i++) queue.enqueue(numbers[i]);
         while (!queue.isEmpty()) System.out.println("Item: " + queue.dequeue());
+    }
+    static void testCornellPaper(){
+
     }
 }
