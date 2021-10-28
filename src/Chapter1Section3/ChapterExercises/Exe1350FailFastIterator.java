@@ -4,7 +4,7 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 public class Exe1350FailFastIterator {
-    static class Stack<Item>{
+    static class Stack<Item> implements Iterable<Item>{
         private int N = 0;
         private int pushCount = 0;
         private int popCount = 0;
@@ -33,6 +33,8 @@ public class Exe1350FailFastIterator {
             while (stackIterator.hasNext()) result += " " + stackIterator.next();
             return result;
         }
+
+        public Iterator<Item> iterator(){ return new StackIterator(); }
         private class StackIterator implements Iterator<Item>{
             Node current = first;
             private int iteratorPushCount = pushCount;
@@ -57,13 +59,11 @@ public class Exe1350FailFastIterator {
 
     public static void main(String[] args) {
         int[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        Stack stack = new Stack();
+        Stack<Integer> stack = new Stack();
         for (int i = 0; i < numbers.length; i++) stack.push(numbers[i]);
-        System.out.println(stack);
 
-        Stack.StackIterator stackIterator = stack.new StackIterator();
-        while (stackIterator.hasNext()){
-            System.out.print(" " + stackIterator.next());
+        for (int num : stack) {
+            System.out.print(" " + num);
             stack.pop();
         }
     }
