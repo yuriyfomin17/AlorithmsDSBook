@@ -76,6 +76,23 @@ public class Exe1349QueueThreeStacks {
         public boolean isEmpty(){ return stack1.isEmpty(); }
     }
 
+    // queue can be implemented with two stack and it will take an amortized constant time implementation
+    // cause recopying the stack elements from one to another will be done every O(n) time. Hence, the average time of operation is O(1) + O(n)/O(n) = O(1)
+    static class QueueTwoStacks<Item>{
+        Stack pushStack = new Stack();
+        Stack popStack = new Stack();
+
+        public void enqueue(Item item){
+            pushStack.push(item);
+        }
+        public Item dequeue(){
+            while (!pushStack.isEmpty()) popStack.push(pushStack.pop());
+            return (Item) popStack.pop();
+        }
+        public int size(){ return popStack.size() + pushStack.size(); }
+        public boolean isEmpty() { return (popStack.size() + pushStack.size()) == 0; }
+    }
+
     static class QueueCornellPaper<Item>{
 
         Stack stackHead = new Stack(); // in reverse order
@@ -101,7 +118,13 @@ public class Exe1349QueueThreeStacks {
 
     }
     public static void main(String[] args) {
-        testStackOverFlowPaper();
+        testTwoStackQueue();
+    }
+    static void testTwoStackQueue(){
+        QueueTwoStacks queueTwoStacks = new QueueTwoStacks();
+        int[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        for (int i = 0; i < numbers.length; i++) queueTwoStacks.enqueue(numbers[i]);
+        while (!queueTwoStacks.isEmpty()) System.out.print(" " + queueTwoStacks.dequeue());
     }
     static void testStackOverFlowPaper(){
         QueueStackOverFlow queue = new QueueStackOverFlow();

@@ -283,51 +283,10 @@ public class Exercise49_QueueWithStacks<Item> implements Iterable<Item> {
     public static void main(String[] args) {
 
         Exercise49_QueueWithStacks<Integer> queueWithStacks = new Exercise49_QueueWithStacks<>();
-        queueWithStacks.enqueue(0);
+        int[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        for (int i = 0; i < numbers.length; i++) queueWithStacks.enqueue(numbers[i]);
 
-        queueWithStacks.dequeue();
-        StdOut.println("Queue size: " + queueWithStacks.size());
-        StdOut.println("Expected: 0");
 
-        queueWithStacks.enqueue(1);
-        queueWithStacks.enqueue(2);
-        queueWithStacks.enqueue(3);
-
-        StdOut.println("\nQueue size: " + queueWithStacks.size());
-        StdOut.println("Expected: 3");
-
-        StringJoiner queueItems1 = new StringJoiner(" ");
-        for (int item : queueWithStacks) {
-            queueItems1.add(String.valueOf(item));
-        }
-
-        StdOut.println("Queue items: " + queueItems1.toString());
-        StdOut.println("Expected: 1 2 3");
-
-        queueWithStacks.enqueue(4);
-
-        StringJoiner queueItems2 = new StringJoiner(" ");
-        for (int item : queueWithStacks) {
-            queueItems2.add(String.valueOf(item));
-        }
-
-        StdOut.println("\nQueue items: " + queueItems2.toString());
-        StdOut.println("Expected: 1 2 3 4");
-
-        queueWithStacks.dequeue();
-        queueWithStacks.dequeue();
-        queueWithStacks.dequeue();
-
-        StringJoiner queueItems3 = new StringJoiner(" ");
-        for (int item : queueWithStacks) {
-            queueItems3.add(String.valueOf(item));
-        }
-
-        StdOut.println("\nQueue size: " + queueWithStacks.size());
-        StdOut.println("Expected: 1");
-
-        StdOut.println("Queue items: " + queueItems3.toString());
-        StdOut.println("Expected: 4");
     }
 
 }
