@@ -51,6 +51,7 @@ public class Exe1349QueueThreeStacks {
             }
         }
     }
+    // number of stacks here are equal to the number of the elements that you are going to insert
     static class QueueStackOverFlow<Item>{
         private int N = 0;
         private Stack stack1 = new Stack();
