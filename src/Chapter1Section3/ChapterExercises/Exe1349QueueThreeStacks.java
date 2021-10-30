@@ -86,7 +86,7 @@ public class Exe1349QueueThreeStacks {
             pushStack.push(item);
         }
         public Item dequeue(){
-            while (!pushStack.isEmpty()) popStack.push(pushStack.pop());
+            if (!popStack.isEmpty()) while (!pushStack.isEmpty()) popStack.push(pushStack.pop());
             return (Item) popStack.pop();
         }
         public int size(){ return popStack.size() + pushStack.size(); }
