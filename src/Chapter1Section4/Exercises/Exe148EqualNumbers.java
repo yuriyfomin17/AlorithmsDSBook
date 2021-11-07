@@ -31,6 +31,7 @@ public class Exe148EqualNumbers {
      * P(N + 1) = P(N) + !N / 1! (N - 1)!
      * P(N + 1) = P(N) + N
      * P(N + 1) = ((N - 1) * N) / 2 + 2 * N / 2 = (N * (N + 1)) / 2
+     * therefore it is proved
      */
 
     public static int equalNumbers(int[] arr){
