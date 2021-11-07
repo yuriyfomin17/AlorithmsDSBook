@@ -3,7 +3,7 @@ package Chapter1Section4.Exercises;
 public class Exe141ProofByInduction {
 
 }
-/** TODO
+/** TODO Prove by Induction
  * Show that the number of different triples that can be chosen from N items
  * precisely (N * (N - 1) * (N - 2))/ 6
  */
