@@ -1,6 +1,8 @@
 package Chapter1Section4.Exercises;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Exe148EqualNumbers {
 
@@ -34,24 +36,45 @@ public class Exe148EqualNumbers {
      * therefore it is proved
      */
 
-    public static int equalNumbers(int[] arr){
-        int cnt = 0;
+    // O(N lg(N)) solution
+    public static int countPairs(int[] arr){
         Arrays.sort(arr);
-        for (int i = 0; i < arr.length; i++) {
-            if (binarySearch(arr[i], arr) != -1) cnt++;
+        int sameNumbersCount = 0;
+        int cntNumPairs = 0;
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i - 1] == arr[i] && sameNumbersCount == 0) sameNumbersCount = 2;
+            else if (arr[i - 1] == arr[i] && sameNumbersCount != 0) sameNumbersCount += 1;
+            else if (arr[i - 1] != arr[i] && sameNumbersCount != 0){
+                cntNumPairs += ((sameNumbersCount - 1) * sameNumbersCount) / 2;
+                sameNumbersCount = 0;
+            }
         }
-        return cnt;
+        if (sameNumbersCount != 0) cntNumPairs += ((sameNumbersCount - 1) * sameNumbersCount) / 2;
+        return cntNumPairs;
+    }
+    // O(N) solution
+    public static int countPairsFaster(int [] arr){
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        for (int i = 0; i < arr.length; i++) {
+            if (!hashMap.containsKey(arr[i])) hashMap.put(arr[i], 1);
+            else if (hashMap.containsKey(arr[i])) hashMap.put(arr[i], hashMap.get(arr[i]) + 1);
+        }
+        int cntNumPairs = 0;
+        for (Map.Entry<Integer, Integer> entry: hashMap.entrySet()){
+            int N = entry.getValue();
+            cntNumPairs += (N - 1) * N / 2;
+        }
+        return cntNumPairs;
     }
 
-    public static int binarySearch(int key, int[] arr){
-        int low = 0;
-        int high = arr.length - 1;
-        while (low < high){
-            int mid = low + (high - low) / 2;
-            if (key < arr[mid]) high = mid - 1;
-            else if (key > arr[mid]) low = mid + 1;
-            else return mid;
-        }
-        return -1;
+
+    public static void main(String[] args) {
+        // Tests
+        int[] values1 = {1, 2, 4, 1, 2, 1, 2, 4, 5, 1, 2, 4, 5, 1, 2 ,5, 6, 7, 7, 8, 2, 1, 2, 4, 5};
+
+        System.out.println("Equal pairs: " + countPairsFaster(values1) + " expected: 49");
+        int[] values2 = {1, 1, 1};
+        System.out.println("Equal pairs: " + countPairsFaster(values2) + " expected: 3");
     }
+
 }
