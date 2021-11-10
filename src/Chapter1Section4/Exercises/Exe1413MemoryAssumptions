@@ -1,13 +1,13 @@
-Typical memory usage
+** Typical memory usage
 
- type          bytes
- boolean         1
- byte            1
- char            2
- int             4
- float           4
- long            8
- double          8
+     type          bytes
+     boolean         1
+     byte            1
+     char            2
+     int             4
+     float           4
+     long            8
+     double          8
 
 * Each object has a 16 bytes of overhead. The overhead includes
     1. Reference to the object class
@@ -43,8 +43,13 @@ Typical memory usage
 ** Two-dimensional array of doubles
             => usual
                   (24 bytes overhead for the array of arrays + 8 bytes) * M (references to the row arrays)
-                  + 16 bytes overhead from the row arrays  + M * N * 8 bytes( row * column * double values)
+                  + 24 bytes overhead from the row arrays  + M * N * 8 bytes( row * column * double values)
                   => 24 Bytes + 32 * M + 8 * N * M =>  ~ 8 * N * M  for two dimensional array filled with double values
 
+** String object
+            => usual
+                a reference to a character array (8 bytes) and three int values (4 bytes each).
+                The first int value is an offset into the character array;
+                The second is a count
 
-Accumulator
+** Accumulator
