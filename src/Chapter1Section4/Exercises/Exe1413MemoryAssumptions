@@ -1,0 +1,50 @@
+Typical memory usage
+
+ type          bytes
+ boolean         1
+ byte            1
+ char            2
+ int             4
+ float           4
+ long            8
+ double          8
+
+* Each object has a 16 bytes of overhead. The overhead includes
+    1. Reference to the object class
+    2. Garbage collection information
+    3. Synchronization information
+  Moreover, memory usually padded to be a multiple of 8 bytes (on 64-bit machine)
+
+** Integer object uses 24 bytes (16 bytes of overhead, 4 bytes for its int instance variable and 4 bytes of padding)
+** Date object uses 32 bytes: 16 bytes of overhead, 4 bytes for each of 3 instance variable and 4 bytes of padding
+** Counter object uses 32 bytes: 16 bytes of overhead, 4 bytes for int var and 8 bytes for string and another 4 bytes for padding
+** Node object uses 40 bytes: 16 bytes of overhead, 8 bytes each for the references to the Item and Node objects. Also, 8 bytes for the extra overhead
+
+** LinkedList of Integers uses 32 + 64N bytes of data
+            => usual
+                16 bytes overhead for Stack,
+                8 for its reference,
+                4 for its int instance variable
+                4 for padding
+            => each Node
+                40 bytes for the Node itself
+                24 bytes for the Integer
+
+** Array of Variables typically requires 24 bytes of header information
+            => usual
+                 16 bytes of object overhead
+                 4 bytes for the length
+                 4 bytes for the padding
+            => plus memory for each variable
+                e.g. int - 4bytes * N
+                e.g. Dates - 24 bytes of overhead + 8 bytes * N bytes (references) + 32 bytes * N (for each object) + 4 bytes of padding
+                     => ~ 24 + 40 * N bytes
+
+** Two-dimensional array of doubles
+            => usual
+                  (24 bytes overhead for the array of arrays + 8 bytes) * M (references to the row arrays)
+                  + 16 bytes overhead from the row arrays  + M * N * 8 bytes( row * column * double values)
+                  => 24 Bytes + 32 * M + 8 * N * M =>  ~ 8 * N * M  for two dimensional array filled with double values
+
+
+Accumulator
