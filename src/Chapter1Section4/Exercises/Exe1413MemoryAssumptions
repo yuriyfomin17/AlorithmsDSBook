@@ -50,6 +50,7 @@
             => usual
                 a reference to a character array (8 bytes) and three int values (4 bytes each).
                 The first int value is an offset into the character array;
-                The second is a count
+                The second is a count of string length
+                The third int value is a hashcode needed that saves re-computation in certain cases
 
 ** Accumulator
