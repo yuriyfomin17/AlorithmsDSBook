@@ -33,7 +33,7 @@ public class Exe146OrderOfGrowth {
     /** Time execution table for bMethod
      *       statement block      time in seconds            frequency                                  total time
      *              D                   t0              x depends on input                                x * t0
-     *              C                   t1         N + N/2 + N/4 + N/8 + .... + 1    N + N/2 + N/4 + N/8 + .... + 1 => geometric series converges to 2N
+     *              C                   t1              N * (1, 2, 4, ..., 2^log(N))                       ln(N)
      *              B                   t2                      ln(N)                                 ln(N) * t2
      *              A                   t3                         1                                    t3
      *       Grand Total: x * t0 + t1 * 2N + t2 * ln(N) + t3
