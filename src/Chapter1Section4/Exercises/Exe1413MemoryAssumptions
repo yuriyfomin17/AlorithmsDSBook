@@ -48,9 +48,64 @@
 
 ** String object
             => usual
-                a reference to a character array (8 bytes) and three int values (4 bytes each).
+                a reference to a character array (8 bytes) and three int values (4 bytes each) plus 16 bytes for object overhead plus 4 bytes padding.
                 The first int value is an offset into the character array;
                 The second is a count of string length
                 The third int value is a hashcode needed that saves re-computation in certain cases
+            => therefore one string uses total of 40 bytes for the string object plus 24 + 2 * N for the array that contains object
+            => Total = 64 + 2 * N bytes
 
-** Accumulator
+** a. Accumulator (page 93)
+            => 16 bytes of overhead, since each object has it
+                8 bytes for double
+                4 bytes for int
+                4 bytes of padding
+            => Total = 32 bytes
+
+** b. Transaction (page 79)
+            => 16 bytes of overhead, since each object has it
+               40 bytes for String object
+               32 bytes for Date object
+               8 bytes for double
+               4 bytes of padding
+            => Total = 100 bytes
+
+** c. FixedCapacityStackOfStrings
+            => 16 bytes of overhead, since each object has it
+               Array of Strings: 24bytes + (64 + 2 * N) bytes for string in array
+               4 bytes for int
+               4 bytes of padding
+            => Total = 16 + 24 + (64 + 2 * N) + 4 + 4
+
+** d. Point2D
+            => 16 bytes of overhead, since each object has it
+                8 bytes for first double and 8 bytes for second
+                4 bytes of padding
+            => Total = 16 + 16 + 4
+
+** e. Interval1D
+            => 16 bytes of overhead, since each object has it
+                8 bytes for first double and 8 bytes for second
+                4 bytes of padding
+            => Total = 16 + 16 + 4
+
+** f. Interval2D
+               => 16 bytes of overhead, since each object has it
+                   2 * 36 bytes for two Interval1D
+                   4 bytes of padding
+               => Total = 16 + 2 * 36 + 4 assuming that we create two Interval1D
+
+               Alternatively
+               => 16 bytes of overhead, since each object has it
+                  2 * 8 bytes for two Interval1D references
+                  4 bytes of padding
+               => Total = 16 + 2 * 8 + 4
+
+** g. Double (page 34)
+                => 16 bytes of overhead, since each object has it
+                    8 bytes for double
+                    4 bytes of padding
+                => Total = 16 + 8 + 4
+
+
+
