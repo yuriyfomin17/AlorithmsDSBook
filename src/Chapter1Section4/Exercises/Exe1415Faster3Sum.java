@@ -8,6 +8,7 @@ import java.util.HashSet;
 
 public class Exe1415Faster3Sum {
     public static void main(String[] args) {
+        int[] result = new int[2];
         int[] array = {-10, -10, -5, 0, 5, 10, 10, 15, 20};
         int[] arrayTest1 = {-3, -2, 2, 3, 5, 99};
         int[] arrayTest2 = {-10, -10, -10, 10, 10};
