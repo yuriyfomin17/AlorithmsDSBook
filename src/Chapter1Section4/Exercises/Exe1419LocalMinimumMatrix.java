@@ -34,21 +34,21 @@ public class Exe1419LocalMinimumMatrix {
                 {7, -1, -8, 19},
                 {12, 8, 13, 99}
         };
-//        System.out.println("<-------------Matrix Maximum------------->");
-//        System.out.println("Matrix Peak: " + localMaximumMatrix(matrix, 0, matrix[0].length) + " Expected: 9 or 8 or 5");
-//        System.out.println("Matrix Peak: " + localMaximumMatrix(matrix1, 0, matrix1[0].length) + " Expected: 1");
-//        System.out.println("Matrix Peak: " + localMaximumMatrix(matrix2, 0, matrix2[0].length) + " Expected: 4");
-//        System.out.println("Matrix Peak: " + localMaximumMatrix(matrix3, 0, matrix3[0].length) + " Expected: 5 or 9");
-//        System.out.println("Matrix Peak: " + localMaximumMatrix(matrix4, 0, matrix4[0].length) + " Expected: 90 or 12 or 99");
-//        System.out.println("Matrix Peak: " + localMaximumMatrix(matrix5, 0, matrix5[0].length) + " Expected: 90 or 12 or 99\n");
-//
-//        System.out.println("<-------------Matrix Minimum------------->");
-//        System.out.println("Matrix Minimum: " + localMinimumMatrix(matrix, 0, matrix[0].length) + " Expected: 0 or 1 or 2");
-//        System.out.println("Matrix Minimum: " + localMinimumMatrix(matrix1, 0, matrix1[0].length) + " Expected: 1");
-//        System.out.println("Matrix Minimum: " + localMinimumMatrix(matrix2, 0, matrix2[0].length) + " Expected: -2");
-//        System.out.println("Matrix Minimum: " + localMinimumMatrix(matrix3, 0, matrix3[0].length) + " Expected: 1 or 2 or 4");
-//        System.out.println("Matrix Minimum: " + localMinimumMatrix(matrix4, 0, matrix4[0].length) + " Expected: -9");
-//        System.out.println("Matrix Minimum: " + localMinimumMatrix(matrix5, 0, matrix5[0].length) + " Expected: -8\n");
+        System.out.println("<-------------Matrix Maximum------------->");
+        System.out.println("Matrix Peak: " + localMaximumMatrix(matrix, 0, matrix[0].length) + " Expected: 9 or 8 or 5");
+        System.out.println("Matrix Peak: " + localMaximumMatrix(matrix1, 0, matrix1[0].length) + " Expected: 1");
+        System.out.println("Matrix Peak: " + localMaximumMatrix(matrix2, 0, matrix2[0].length) + " Expected: 4");
+        System.out.println("Matrix Peak: " + localMaximumMatrix(matrix3, 0, matrix3[0].length) + " Expected: 5 or 9");
+        System.out.println("Matrix Peak: " + localMaximumMatrix(matrix4, 0, matrix4[0].length) + " Expected: 90 or 12 or 99");
+        System.out.println("Matrix Peak: " + localMaximumMatrix(matrix5, 0, matrix5[0].length) + " Expected: 90 or 12 or 99\n");
+
+        System.out.println("<-------------Matrix Minimum------------->");
+        System.out.println("Matrix Minimum: " + localMinimumMatrix(matrix, 0, matrix[0].length) + " Expected: 0 or 1 or 2");
+        System.out.println("Matrix Minimum: " + localMinimumMatrix(matrix1, 0, matrix1[0].length) + " Expected: 1");
+        System.out.println("Matrix Minimum: " + localMinimumMatrix(matrix2, 0, matrix2[0].length) + " Expected: -2");
+        System.out.println("Matrix Minimum: " + localMinimumMatrix(matrix3, 0, matrix3[0].length) + " Expected: 1 or 2 or 4");
+        System.out.println("Matrix Minimum: " + localMinimumMatrix(matrix4, 0, matrix4[0].length) + " Expected: -9");
+        System.out.println("Matrix Minimum: " + localMinimumMatrix(matrix5, 0, matrix5[0].length) + " Expected: -8\n");
 //
         System.out.println("<---------Matrix Maximum faster-------------> ");
         System.out.println("Matrix Maximum: " + localMaximumMatrixFaster(matrix, 0, matrix.length, 0, matrix[0].length) + " Expected: 9 or 5 or 8 or 6\n");
@@ -203,13 +203,10 @@ public class Exe1419LocalMinimumMatrix {
     }
 
     public static Object localMinimumMatrixFaster(int[][] matrix, int lowR, int highR, int lowC, int highC) {
-//        System.out.println("lowC: " + lowC);
-//        System.out.println("highC: " + highC);
+
         int midR = lowR + (highR - lowR) / 2;
         int midC = lowC + (highC - lowC) / 2;
-//        System.out.println("midR: " + midR);
-//        System.out.println("midC: " + midC);
-//        System.out.println();
+
         int midNum = matrix[midR][midC];
 
         int topNum = midR - 1 >= 0 ? matrix[midR - 1][midC] : Integer.MAX_VALUE;
@@ -217,27 +214,18 @@ public class Exe1419LocalMinimumMatrix {
         int leftNum = midC - 1 >= 0 ? matrix[midR][midC - 1] : Integer.MAX_VALUE;
         int rightNum = midC + 1 < matrix[0].length ? matrix[midR][midC + 1] : Integer.MAX_VALUE;
 
-//        System.out.println("Mid Num: " + midNum);
-//        System.out.println("Left Num: " + leftNum);
-//        System.out.println("Right Num: " + rightNum);
-//        System.out.println("Top Num: " + topNum);
-//        System.out.println("Bot Num: " + botNum);
-//        System.out.println();
+
         if (midNum < topNum && midNum < botNum && midNum < leftNum && midNum < rightNum) return midNum;
 
         int minRowIdx = midR;
         int minColIdx = midC;
-        // find minimum number in the current matrix cross
         for (int r = 0; r < matrix.length; r++) {
-//            System.out.println("Row: " + r);
             if (matrix[r][midC] < midNum) {
                 midNum = matrix[r][midC];
                 minRowIdx = r;
             }
         }
-//        System.out.println();
         for (int c = 0; c < matrix[0].length; c++) {
-//            System.out.println("Col: " + c);
             if (matrix[midR][c] < midNum) {
                 midNum = matrix[midR][c];
                 minRowIdx = midR;
