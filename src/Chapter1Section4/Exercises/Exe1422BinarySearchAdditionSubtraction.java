@@ -2,7 +2,7 @@ package Chapter1Section4.Exercises;
 
 import edu.princeton.cs.algs4.StdOut;
 
-public class Exe84BinarySearchAdditionSubtraction {
+public class Exe1422BinarySearchAdditionSubtraction {
     public static void main(String[] args) {
         int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
         System.out.println("Target 9: " + fibonacciSearch(arr, 9) + " Expected 8");
