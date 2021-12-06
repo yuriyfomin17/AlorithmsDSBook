@@ -40,53 +40,7 @@ public class Exe1427QueueStacks {
 
     }
 
-    static class Stack<Item> {
-        Node last = null;
-        int N = 0;
 
-        public void push(Item item) {
-            Node newLast = new Node(item);
-
-            if (!isEmpty()) newLast.next = this.last;
-            this.last = newLast;
-            N++;
-        }
-        public Item pop(){
-            Item item = (Item) this.last.item;
-            this.last = this.last.next;
-            N--;
-            return item;
-        }
-
-        public int size() {
-            return N;
-        }
-
-        public boolean isEmpty() {
-            return N == 0;
-        }
-        public class StackIterator implements Iterator<Item>{
-            private Node current = last;
-            @Override
-            public boolean hasNext() {
-                return current != null;
-            }
-
-            @Override
-            public Item next() {
-                Item item = (Item) current.item;
-                current = current.next;
-                return item;
-            }
-        }
-
-        public String toString(){
-            String result = "";
-            StackIterator stackIterator = new StackIterator();
-            while (stackIterator.hasNext()) result +=  " " + stackIterator.next();
-            return result;
-        }
-    }
     static class QueueTwoStacks<Item>{
         Stack dequeueStack = new Stack();
         Stack pushStack = new Stack();
@@ -162,7 +116,53 @@ public class Exe1427QueueStacks {
         }
 
     }
+    static class Stack<Item> {
+        Node last = null;
+        int N = 0;
 
+        public void push(Item item) {
+            Node newLast = new Node(item);
+
+            if (!isEmpty()) newLast.next = this.last;
+            this.last = newLast;
+            N++;
+        }
+        public Item pop(){
+            Item item = (Item) this.last.item;
+            this.last = this.last.next;
+            N--;
+            return item;
+        }
+
+        public int size() {
+            return N;
+        }
+
+        public boolean isEmpty() {
+            return N == 0;
+        }
+        public class StackIterator implements Iterator<Item>{
+            private Node current = last;
+            @Override
+            public boolean hasNext() {
+                return current != null;
+            }
+
+            @Override
+            public Item next() {
+                Item item = (Item) current.item;
+                current = current.next;
+                return item;
+            }
+        }
+
+        public String toString(){
+            String result = "";
+            StackIterator stackIterator = new StackIterator();
+            while (stackIterator.hasNext()) result +=  " " + stackIterator.next();
+            return result;
+        }
+    }
     static class Node<Item> {
         Item item;
         Node next;
