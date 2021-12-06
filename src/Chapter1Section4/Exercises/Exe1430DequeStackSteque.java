@@ -1,7 +1,4 @@
 package Chapter1Section4.Exercises;
-
-import java.util.Iterator;
-
 public class Exe1430DequeStackSteque {
     public static void main(String[] args) {
         testDeque();
