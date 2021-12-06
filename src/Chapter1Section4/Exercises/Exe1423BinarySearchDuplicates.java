@@ -2,15 +2,16 @@ package Chapter1Section4.Exercises;
 
 import edu.princeton.cs.algs4.StdOut;
 
+
 public class Exe1423BinarySearchDuplicates {
     public static void main(String[] args) {
+        int num = Integer.MAX_VALUE;
         int[] array = {-4, -1, 1, 2, 2, 2, 2, 2, 2, 2, 4, 5};
         //First rank tests
         int firstRankElement1 = binarySearchFirstIndex(array, -4);
         int firstRankElement2 = binarySearchFirstIndex(array, -8);
         int firstRankElement3 = binarySearchFirstIndex(array, 5);
         int firstRankElement4 = binarySearchFirstIndex(array, 2);
-
 
         StdOut.println("First index of element -4: " + firstRankElement1 + " Expected: 0");
         StdOut.println("First index of element -8: " + firstRankElement2 + " Expected: -1");
