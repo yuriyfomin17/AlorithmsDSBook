@@ -1,7 +1,4 @@
 package Chapter1Section4.Exercises;
-
-import Chapter1Section3.ChapterExercises.Exe1332Steque;
-
 import java.util.Iterator;
 
 public class Exe1429StequeTwoStacks {
