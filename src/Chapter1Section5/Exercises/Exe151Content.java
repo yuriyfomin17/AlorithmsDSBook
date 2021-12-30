@@ -1,8 +1,6 @@
 package Chapter1Section5.Exercises;
 
 public class Exe151Content {
-
-
     public static void main(String[] args) {
         QuickFind quickFind = new QuickFind(10);
         int[] pArr = {9, 3, 5, 7, 2, 5, 0, 4};
