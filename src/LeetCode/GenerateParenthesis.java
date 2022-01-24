@@ -5,13 +5,13 @@ import java.util.List;
 
 public class GenerateParenthesis {
     /**
-    *   <h2>Time and Space Complexity Analysis</h2>
-    *  <p> Time complexity: O(2^2n * n). For each of 2^2n sequences, we need to create and validate the
+     *  <h2>Time and Space Complexity Analysis - Approach 1</h2>
+     *  <p> Time complexity: O(2^2n * n). For each of 2^2n sequences, we need to create and validate the
      *  the sequence, which takes O(n) work</p>
      *
      *  <p>Space complexity: O(2^2n * n). Naively every sequence could be valid</p>
-    *
-    * */
+     *
+     * */
     public List<String> generateParenthesis(int n) {
         List<String> result = new ArrayList<>();
         generateAllParenthesis(result, 0, new char[2 * n]);
@@ -28,6 +28,7 @@ public class GenerateParenthesis {
             generateAllParenthesis(result, pos + 1, curr);
         }
 
+
     }
 
     public static boolean isValid(char[] curr){
@@ -39,5 +40,46 @@ public class GenerateParenthesis {
             if(balance < 0) return false;
         }
         return balance == 0;
+    }
+
+    /**
+     *  <h2>Time and Space Complexity Analysis - Approach 2</h2>
+     *  <p> Time complexity: O(4^n / (sqrt(n))). Each valid sequence has at most n steps during backtracking procedure</p>
+     *
+     *  <p>Space complexity: O(4^n / (sqrt(n))) and using O(n) space to store the sequence</p>
+     *
+     * */
+    public static List<String> generateParenthesis2(int n) {
+        List<String> result = new ArrayList<>();
+        generateAllParenthesis2(result, new StringBuilder(), n, 0, 0);
+        return result;
+    }
+
+    public static void generateAllParenthesis2(List<String> result, StringBuilder curr, int max, int open, int close ){
+        if(max * 2 == curr.length()){
+            result.add(curr.toString());
+            return;
+        }
+        if(open < max){
+            curr.append("(");
+            generateAllParenthesis2(result, curr, max, open + 1, close );
+            curr.deleteCharAt(curr.length() - 1);
+        }
+
+        if(close < open){
+            curr.append(")");
+            generateAllParenthesis2(result, curr, max, open, close + 1 );
+            curr.deleteCharAt(curr.length() - 1);
+        }
+
+
+    }
+
+
+
+
+
+    public static void main(String[] args) {
+        generateParenthesis2(3);
     }
 }
