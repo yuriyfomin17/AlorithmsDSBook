@@ -46,12 +46,58 @@ public class SwapNodesInPairs {
 
         return newHead;
     }
+
+    /**
+     * <h2>Time and Space Complexity Analysis</h2>
+     * <p>Time Complexity: O(n). It is one time pass. We need to pass only one time through list to reverse nodes. </p>
+     * <p>Space Complexity: O(1). If not counting the initial memory required for linked list then it is constant amount of memory </p>
+     * */
+
+    public static ListNode swapPairs2(ListNode head){
+        if(head == null) return null;
+        if(head.next == null) return head;
+        ListNode node1 = head;
+        ListNode node2 = head.next;
+        ListNode prev = null;
+        ListNode newHead = null;
+
+        while (node1 != null && node2 != null){
+            ListNode temp = node2.next;
+
+            if (prev != null) prev.next = node2;
+            if (newHead == null) newHead = node2;
+            node2.next = node1;
+            node1.next = temp;
+            prev = node1;
+            // System.out.println(":" + node1.val);
+            // System.out.println("node1:" + node1.val);
+            // System.out.println("node2:" + node2.val);
+            node1 = temp;
+            if (temp != null) node2 = temp.next;
+
+        }
+
+        if (node1 != null) prev.next = node1;
+
+        return newHead;
+    }
     public static class ListNode {
         int val;
         ListNode next;
         ListNode() {}
         ListNode(int val) { this.val = val; }
         ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+    }
+
+    public static void main(String[] args) {
+        ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(2);
+        ListNode node3 = new ListNode(3);
+        ListNode node4 = new ListNode(4);
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        swapPairs2(node1);
     }
 }
 
