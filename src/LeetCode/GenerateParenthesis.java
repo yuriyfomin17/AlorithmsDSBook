@@ -71,7 +71,10 @@ public class GenerateParenthesis {
             generateAllParenthesis2(result, curr, max, open, close + 1 );
             curr.deleteCharAt(curr.length() - 1);
         }
-
+        StringBuilder stringBuilder = new StringBuilder();
+        List<String> arr = new ArrayList<>();
+        arr.add(new String(stringBuilder));
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
 
     }
 
