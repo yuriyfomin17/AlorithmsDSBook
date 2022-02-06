@@ -1,6 +1,7 @@
 package LeetCode;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class SwapNodesInPairs {
     /**
@@ -60,7 +61,6 @@ public class SwapNodesInPairs {
         ListNode node2 = head.next;
         ListNode prev = null;
         ListNode newHead = null;
-
         while (node1 != null && node2 != null){
             ListNode temp = node2.next;
 
@@ -90,6 +90,13 @@ public class SwapNodesInPairs {
     }
 
     public static void main(String[] args) {
+        Date date = new Date();
+        String nullVal = null;
+        if (nullVal == null) System.out.println("null");
+        System.out.println(date);
+        int  b = 5;
+        b =  b << 3;
+        System.out.println(b);
         ListNode node1 = new ListNode(1);
         ListNode node2 = new ListNode(2);
         ListNode node3 = new ListNode(3);
