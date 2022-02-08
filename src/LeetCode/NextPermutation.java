@@ -1,6 +1,15 @@
 package LeetCode;
 
 public class NextPermutation {
+    /**
+     *  <h2>Task: generate next lexicographic permutation. For example, [1, 2, 3] => [1, 3, 2]. [1, 3, 2] => [3, 1, 2]</h2>
+     *  <h3>Time and Space Complexity Analysis - Approach 1</h3>
+     *  <p> Time complexity: O(2^2n * n). For each of 2^2n sequences, we need to create and validate the
+     *  the sequence, which takes O(n) work</p>
+     *
+     *  <p>Space complexity: O(2^2n * n). Naively every sequence could be valid</p>
+     *
+     * */
     public static void nextPermutation(int[] nums) {
         if (nums.length <= 1) return;
         int firstIndex = nums.length - 2;

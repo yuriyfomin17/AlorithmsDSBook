@@ -4,14 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GenerateParenthesis {
-    /**
-     *  <h2>Time and Space Complexity Analysis - Approach 1</h2>
-     *  <p> Time complexity: O(2^2n * n). For each of 2^2n sequences, we need to create and validate the
-     *  the sequence, which takes O(n) work</p>
-     *
-     *  <p>Space complexity: O(2^2n * n). Naively every sequence could be valid</p>
-     *
-     * */
     public List<String> generateParenthesis(int n) {
         List<String> result = new ArrayList<>();
         generateAllParenthesis(result, 0, new char[2 * n]);
@@ -43,7 +35,8 @@ public class GenerateParenthesis {
     }
 
     /**
-     *  <h2>Time and Space Complexity Analysis - Approach 2</h2>
+     *  <h2>Task: Generate all variation of parenthesis</h2>
+     *  <h3>Time and Space Complexity Analysis - Approach 2</h3>
      *  <p> Time complexity: O(4^n / (sqrt(n))). Each valid sequence has at most n steps during backtracking procedure</p>
      *
      *  <p>Space complexity: O(4^n / (sqrt(n))) and using O(n) space to store the sequence</p>
