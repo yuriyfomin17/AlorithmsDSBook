@@ -4,6 +4,7 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class Exe1119Fibonacci {
     public static void main(String[] args) {
+        exe1119();
     }
 
     public static void exe1119() { // ✅ checked
@@ -16,7 +17,7 @@ public class Exe1119Fibonacci {
                 if (info[N-1] != 0) return info[N-1];
                 long result =  F(N - 1, info) + F(N - 2, info);
                 info[N-1] = result;
-                return result;
+                return info[N-1];
             }
         }
         for (int N = 0; N < 100; N++){

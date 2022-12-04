@@ -1,11 +1,32 @@
 package Chapter2.Section1.ChapterNotes;
 
-import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdRandom;
+import edu.princeton.cs.algs4.Insertion;
+
+import java.util.Arrays;
+import java.util.function.Consumer;
 
 public class SortingAlgorithms {
+
+
+    private static void getAlgorithmTime(Consumer<Double[]> consumer, int N, int numExperiments, String algoName) {
+        Double[] arr = new Double[N];
+        double totalTime = 0;
+        for (int k = 0; k < numExperiments; k++) {
+            for (int i = 0; i < N; i++) {
+                arr[i] = StdRandom.uniformDouble();
+            }
+            long startTime = System.currentTimeMillis();
+            consumer.accept(arr);
+            totalTime += System.currentTimeMillis() - startTime;
+        }
+        System.out.printf("%s average sorting time: %.4f millis \n", algoName, totalTime / numExperiments);
+
+    }
+
     public static void sort(Comparable[] a) {
-        SelectionSort.sort(a);
+        MergeSort.sort(a);
     }
 
     private static boolean less(Comparable v, Comparable w) {
@@ -33,10 +54,16 @@ public class SortingAlgorithms {
     }
 
     public static void main(String[] args) {
-        String[] a = In.readStrings();
+        Integer[] a = {4, 2, 4, 1, 2, 6, 10, -1};
+        System.out.println("Before Sorting:" + Arrays.toString(a));
         sort(a);
-        assert isSorted(a);
-        show(a);
+        System.out.println(Arrays.toString(a));
+//        getAlgorithmTime(SelectionSort::sort,10000, 100, "SELECTION_SORT");
+//        getAlgorithmTime(InsertionSort::sort,10000, 100, "INSERTION_SORT");
+//        getAlgorithmTime(ShellSort::sort,10000, 100, "SHELL_SORT");
+
+//        assert isSorted(a);
+//        show(a);
     }
 
     /**
@@ -55,6 +82,7 @@ public class SortingAlgorithms {
     static class SelectionSort {
         public static void sort(Comparable[] a) {
             int N = a.length;
+
             for (int i = 0; i < N; i++) {
                 int minIdx = i;
                 for (int j = i + 1; j < N; j++) {
@@ -62,6 +90,10 @@ public class SortingAlgorithms {
                 }
                 exch(a, i, minIdx);
             }
+        }
+
+        public static String getName() {
+            return "SELECTION_SORT";
         }
     }
 
@@ -85,7 +117,7 @@ public class SortingAlgorithms {
      * <p>
      * 3. An array with only a few entries that are not in place.
      *
-     *<p>
+     * <p>
      * Insertion sort is quicker then Selection sort by 1.6 times
      */
 
@@ -94,12 +126,21 @@ public class SortingAlgorithms {
             int N = a.length;
 
             for (int i = 1; i < N; i++) {
-                for (int j = i; j > 0 && less(a[j], a[j - 1]); j++) {
-                    exch(a, j, j - 1);
+                int idx = i;
+                while (idx > 0 && less(a[idx], a[idx - 1])) {
+                    exch(a, idx, idx - 1);
+                    idx -= 1;
                 }
+
             }
         }
+
+        public static String getName() {
+            return "SELECTION_SORT";
+        }
+
     }
+
     /**
      * ShellSort is generally much faster then Insertion Sort and Selection sort. It uses approx N^3/2
      * <p>
@@ -110,15 +151,45 @@ public class SortingAlgorithms {
         public static void sort(Comparable[] a) {
             int N = a.length;
             int h = 1;
-            while (h < N / 3) h = 3 * h + 1;
+
+            while (h < N / 3) h = h * 3 + 1;
             while (h >= 1) {
                 for (int i = h; i < N; i++) {
                     for (int j = i; j >= h && less(a[j], a[j - h]); j -= h) {
                         exch(a, j, j - h);
                     }
+
                 }
                 h = h / 3;
             }
+        }
+    }
+
+    static class MergeSort{
+        private static Comparable[] aux;
+        public static void merge(Comparable[] a, int low, int mid, int high){
+            int i = low, j = mid + 1;
+            for (int k = low; k <= high ; k++) {
+                aux[k] = a[k];
+            }
+            for (int k = low; k <= high ; k++) {
+                if (i > mid) a[k] = aux[j ++];
+                else if (j > high) a[k] = aux[i++];
+                else if (less(aux[j], aux[i] )) a[k] = aux[j++];
+                else a[k] = aux[i++];
+            }
+
+        }
+        private static void sort(Comparable[] a){
+            aux = new Comparable[a.length];
+            sort(a, 0, a.length - 1);
+        }
+        private static void sort(Comparable[] a, int low, int high){
+            if (high <= low) return;
+            int mid = low  + (high - low) / 2;
+            sort(a, low, mid);
+            sort(a,mid + 1, high);
+            merge(a, low, mid, high);
         }
     }
 
